@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectweb/Home.dart';
-
+import 'package:projectweb/widget/navigator.dart';
 
 Future<void> main() async {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const Homepage(),
+      home: const Navigatorbar(),
     );
   }
 }
