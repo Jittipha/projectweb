@@ -10,7 +10,7 @@ class Navigatorbar extends StatelessWidget {
     return Container(
       // decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
       height: 100,
-      color: Colors.greenAccent,
+      color: Colors.greenAccent[700],
       child: Row(
         children: [
           const SizedBox(
@@ -23,7 +23,7 @@ class Navigatorbar extends StatelessWidget {
               },
               child: const Text(
                 "โพสต์กิจกรรม",
-                style: TextStyle(color: Colors.black, fontSize: 18),
+                style: TextStyle(color: Colors.black, fontSize: 21),
               )),
           const SizedBox(
             width: 40,
@@ -37,7 +37,7 @@ class Navigatorbar extends StatelessWidget {
               },
               child: const Text(
                 "นักศีกษา",
-                style: TextStyle(color: Colors.black, fontSize: 18),
+                style: TextStyle(color: Colors.black, fontSize: 21),
               )),
           const SizedBox(
             width: 40,
@@ -46,7 +46,7 @@ class Navigatorbar extends StatelessWidget {
               onPressed: () {},
               child: const Text(
                 "ตรวจสอบหมวดหมู่",
-                style: TextStyle(color: Colors.black, fontSize: 18),
+                style: TextStyle(color: Colors.black, fontSize: 21),
               )),
         ],
       ),

@@ -1,5 +1,5 @@
 import 'dart:html';
-
+import 'package:colour/colour.dart';
 import 'package:flutter/material.dart';
 import 'package:projectweb/widget/navigator.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -15,8 +15,9 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.greenAccent,
         body: Container(
-            padding: const EdgeInsets.all(30),
+            padding: const EdgeInsets.all(60),
             child: ScreenTypeLayout(
               desktop: Builddesktop(),
               tablet: Buildtablet(),

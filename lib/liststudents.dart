@@ -1,6 +1,7 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:projectweb/Detailstudent.dart';
 import 'package:projectweb/widget/navigator.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -15,8 +16,9 @@ class _liststudentState extends State<liststudent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.greenAccent,
         body: Container(
-            padding: const EdgeInsets.all(30),
+            padding: const EdgeInsets.all(60),
             child: ScreenTypeLayout(
               desktop: Builddesktop(),
               tablet: Buildtablet(),
@@ -28,15 +30,18 @@ class _liststudentState extends State<liststudent> {
         children: [
           const Navigatorbar(),
           const SizedBox(
-            height: 70,
+            height: 60,
           ),
           Container(
-            padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
-            height: 700,
-            color: Colors.greenAccent,
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+            height: 500,
+            width: 700,
+            color: Colors.greenAccent[400],
             child: StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection("Student").snapshots(),
+              stream: FirebaseFirestore.instance
+                  .collection("Student")
+                  .orderBy('Name', descending: true)
+                  .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
@@ -46,19 +51,35 @@ class _liststudentState extends State<liststudent> {
                   return ListView(
                       children: snapshot.data!.docs.map((Student) {
                     return Container(
+                      padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
                       child: ListTile(
+                        // trailing: const Card(
+                        //     child: InkWell(
+                        //       onTap:() {
+
+                        //       },
+                        //   child:
+                        //   Text("ลบผู้ใช้งาน"),
+                        // )),
                         leading: CircleAvatar(
                           backgroundColor: Colors.white,
-                          radius: 30,
+                          radius: 55,
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(Student["Photo"]),
-                            radius: 25,
+                            radius: 20,
                           ),
                         ),
                         title: Text(
                           Student["Name"],
-                          style: const TextStyle(fontSize: 20),
+                          style: const TextStyle(fontSize: 22),
                         ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      detailstudent(student: Student)));
+                        },
                       ),
                     );
                   }).toList());
