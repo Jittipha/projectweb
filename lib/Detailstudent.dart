@@ -15,6 +15,8 @@ class detailstudent extends StatefulWidget {
 }
 
 class _detailstudentState extends State<detailstudent> {
+ 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -207,10 +209,10 @@ class _detailstudentState extends State<detailstudent> {
     Widget okButton = FlatButton(
         child: const Text("OK"),
         onPressed: () async {
-          // await FirebaseFirestore.instance
-          //     .collection("Event")
-          //     .doc(widget.student.id)
-          //     .delete();
+          await FirebaseFirestore.instance
+              .collection("Student")
+              .doc(widget.student.id)
+              .delete();
 
           Navigator.pop(context);
           Navigator.pop(context);

@@ -8,9 +8,10 @@ class Navigatorbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
+      decoration: BoxDecoration(
+          color: Colors.greenAccent[700],
+          border: Border.all(color: Colors.black)),
       height: 100,
-      color: Colors.greenAccent[700],
       child: Row(
         children: [
           const SizedBox(

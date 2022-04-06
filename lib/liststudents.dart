@@ -13,6 +13,26 @@ class liststudent extends StatefulWidget {
 }
 
 class _liststudentState extends State<liststudent> {
+  int Length = 0;
+  double height = 80;
+  @override
+  void initState() {
+    super.initState();
+    getheightforlength();
+  }
+
+  Future<void> getheightforlength() async {
+    Length = await GetArrayLength();
+    height = Length * height;
+    setState(() {});
+  }
+
+  Future<int> GetArrayLength() async {
+    QuerySnapshot snaps =
+        await FirebaseFirestore.instance.collection("Student").get();
+    return snaps.docs.length;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,14 +53,18 @@ class _liststudentState extends State<liststudent> {
             height: 60,
           ),
           Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.greenAccent[400],
+            ),
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-            height: 500,
+            height: height,
             width: 700,
-            color: Colors.greenAccent[400],
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("Student")
                   .orderBy('Name', descending: true)
+                  .limit(7)
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -66,7 +90,7 @@ class _liststudentState extends State<liststudent> {
                           radius: 55,
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(Student["Photo"]),
-                            radius: 20,
+                            radius: 22,
                           ),
                         ),
                         title: Text(
