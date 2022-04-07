@@ -36,7 +36,7 @@ class _detailstudentState extends State<detailstudent> {
                 alignment: Alignment.topCenter,
                 child: CircleAvatar(
                     radius: 200,
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.greenAccent[700],
                     child: CircleAvatar(
                       radius: 195,
                       backgroundImage: NetworkImage(widget.student["Photo"]),
@@ -120,8 +120,15 @@ class _detailstudentState extends State<detailstudent> {
                                               children: [
                                                 CircleAvatar(
                                                   radius: 50,
-                                                  backgroundImage: NetworkImage(
-                                                      Postofstudent["Image"]),
+                                                  backgroundColor: Colors
+                                                      .lightBlueAccent[100],
+                                                  child: CircleAvatar(
+                                                    radius: 48,
+                                                    backgroundImage:
+                                                        NetworkImage(
+                                                            Postofstudent[
+                                                                "Image"]),
+                                                  ),
                                                 ),
                                                 const SizedBox(
                                                   height: 15,
@@ -264,6 +271,7 @@ class _detailstudentState extends State<detailstudent> {
       });
     });
   }
+
   // ignore: non_constant_identifier_names
   void DeleteStudent() async {
     QuerySnapshot snapcolCate = await FirebaseFirestore.instance
@@ -310,6 +318,7 @@ class _detailstudentState extends State<detailstudent> {
         .doc(widget.student.id)
         .delete();
   }
+
   // ignore: non_constant_identifier_names
   void DeleteComment() async {
     FirebaseFirestore.instance

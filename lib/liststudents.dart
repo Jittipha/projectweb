@@ -14,7 +14,7 @@ class liststudent extends StatefulWidget {
 
 class _liststudentState extends State<liststudent> {
   int Length = 0;
-  double height = 80;
+  double height = 78;
   @override
   void initState() {
     super.initState();
@@ -86,11 +86,11 @@ class _liststudentState extends State<liststudent> {
                         //   Text("ลบผู้ใช้งาน"),
                         // )),
                         leading: CircleAvatar(
-                          backgroundColor: Colors.white,
+                          backgroundColor: Colors.black,
                           radius: 55,
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(Student["Photo"]),
-                            radius: 22,
+                            radius: 23,
                           ),
                         ),
                         title: Text(

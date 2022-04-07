@@ -69,14 +69,14 @@ flutter:
 fonts:
     - family: Raleway
       fonts:
-        - asset: android/fonts/Raleway-Regular.ttf
-        - asset: android/fonts/Raleway-Italic.ttf
+        - asset: build/web/fonts/Raleway-Regular.ttf
+        - asset: build/web/fonts/Raleway-Italic.ttf
           style: italic
     - family: RobotoMono
       fonts:
-        - asset: android/fonts/RobotoMono-Regular.ttf
-        - asset: android/fonts/RobotoMono-Bold.ttf
-        - asset: android/fonts/RobotoMono-Light.ttf
+        - asset: build/web/fonts/RobotoMono-Regular.ttf
+        - asset: build/web/fonts/RobotoMono-Bold.ttf
+        - asset: build/web/fonts/RobotoMono-Light.ttf
           weight: 700
   # To add assets to your application, add an assets section, like this:
   # assets:

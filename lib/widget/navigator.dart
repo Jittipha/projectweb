@@ -24,7 +24,10 @@ class Navigatorbar extends StatelessWidget {
               },
               child: const Text(
                 "โพสต์กิจกรรม",
-                style: TextStyle(color: Colors.black, fontSize: 21),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 22),
               )),
           const SizedBox(
             width: 40,
@@ -37,8 +40,12 @@ class Navigatorbar extends StatelessWidget {
                         builder: (context) => const liststudent()));
               },
               child: const Text(
-                "นักศีกษา",
-                style: TextStyle(color: Colors.black, fontSize: 21),
+                "นักศึกษา",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22,
+                   
+                    fontWeight: FontWeight.w400),
               )),
           const SizedBox(
             width: 40,
@@ -47,7 +54,10 @@ class Navigatorbar extends StatelessWidget {
               onPressed: () {},
               child: const Text(
                 "ตรวจสอบหมวดหมู่",
-                style: TextStyle(color: Colors.black, fontSize: 21),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400),
               )),
         ],
       ),
