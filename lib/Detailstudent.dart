@@ -15,8 +15,6 @@ class detailstudent extends StatefulWidget {
 }
 
 class _detailstudentState extends State<detailstudent> {
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -209,17 +207,28 @@ class _detailstudentState extends State<detailstudent> {
     Widget okButton = FlatButton(
         child: const Text("OK"),
         onPressed: () async {
-          await FirebaseFirestore.instance
+          QuerySnapshot snap = await FirebaseFirestore.instance
               .collection("Student")
               .doc(widget.student.id)
-              .delete();
-
+              .collection("Joined")
+              .get();
+          snap.docs.forEach((data) {
+            FirebaseFirestore.instance
+                .collection("Event")
+                .doc(data.id)
+                .collection("Joined")
+                .doc(widget.student.id)
+                .delete();
+          });
+          DeleteNoti();
+          DeleteStudent();
+          DeleteComment();
           Navigator.pop(context);
           Navigator.pop(context);
         });
 
     Widget cancleButton = FlatButton(
-      child: Text("CANCLE"),
+      child: const Text("CANCLE"),
       onPressed: () {
         Navigator.pop(context);
       },
@@ -227,8 +236,8 @@ class _detailstudentState extends State<detailstudent> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Delete Student!"),
-      content: Text("Are you sure?"),
+      title: const Text("Delete Student!"),
+      content: const Text("Are you sure?"),
       actions: [cancleButton, okButton],
     );
 
@@ -239,5 +248,81 @@ class _detailstudentState extends State<detailstudent> {
         return alert;
       },
     );
+  }
+
+  // ignore: non_constant_identifier_names
+  void DeleteNoti() async {
+    QuerySnapshot snapNoti = await FirebaseFirestore.instance
+        .collection("Notification")
+        .where("Student_id", arrayContainsAny: [widget.student.id]).get();
+    snapNoti.docs.forEach((doc) async {
+      await FirebaseFirestore.instance
+          .collection("Notification")
+          .doc(doc.id)
+          .update({
+        'Student_id': FieldValue.arrayRemove([widget.student.id])
+      });
+    });
+  }
+  // ignore: non_constant_identifier_names
+  void DeleteStudent() async {
+    QuerySnapshot snapcolCate = await FirebaseFirestore.instance
+        .collection("Student")
+        .doc(widget.student.id)
+        .collection("Categories")
+        .get();
+    snapcolCate.docs.forEach((element) async {
+      await FirebaseFirestore.instance
+          .collection("Student")
+          .doc(widget.student.id)
+          .collection("Categories")
+          .doc(element.id)
+          .delete();
+    });
+    QuerySnapshot snapcolJoin = await FirebaseFirestore.instance
+        .collection("Student")
+        .doc(widget.student.id)
+        .collection("Joined")
+        .get();
+    snapcolJoin.docs.forEach((element) {
+      FirebaseFirestore.instance
+          .collection("Student")
+          .doc(widget.student.id)
+          .collection("Joined")
+          .doc(element.id)
+          .delete();
+    });
+    QuerySnapshot snapcolPosts = await FirebaseFirestore.instance
+        .collection("Student")
+        .doc(widget.student.id)
+        .collection("Posts")
+        .get();
+    snapcolPosts.docs.forEach((element) {
+      FirebaseFirestore.instance
+          .collection("Student")
+          .doc(widget.student.id)
+          .collection("Posts")
+          .doc(element.id)
+          .delete();
+    });
+    await FirebaseFirestore.instance
+        .collection("Student")
+        .doc(widget.student.id)
+        .delete();
+  }
+  // ignore: non_constant_identifier_names
+  void DeleteComment() async {
+    FirebaseFirestore.instance
+        .collection("Comment")
+        .where("sId", isEqualTo: widget.student.id)
+        .get()
+        .then((value) => {
+              value.docs.forEach((element) {
+                FirebaseFirestore.instance
+                    .collection("Comment")
+                    .doc(element.id)
+                    .delete();
+              })
+            });
   }
 }

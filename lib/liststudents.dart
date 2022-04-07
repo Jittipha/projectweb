@@ -59,7 +59,7 @@ class _liststudentState extends State<liststudent> {
             ),
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
             height: height,
-            width: 700,
+            width: 650,
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("Student")
