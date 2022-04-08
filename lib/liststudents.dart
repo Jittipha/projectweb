@@ -23,7 +23,11 @@ class _liststudentState extends State<liststudent> {
 
   Future<void> getheightforlength() async {
     Length = await GetArrayLength();
-    height = Length * height;
+    if (Length > 7) {
+      height = height * 7;
+    } else {
+      height = Length * height;
+    }
     setState(() {});
   }
 
