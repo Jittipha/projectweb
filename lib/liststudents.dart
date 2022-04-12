@@ -13,8 +13,10 @@ class liststudent extends StatefulWidget {
 }
 
 class _liststudentState extends State<liststudent> {
+  int stagelimit = 0;
+  int limit = 7;
   int Length = 0;
-  double height = 78;
+  double height = 78 * 7;
   @override
   void initState() {
     super.initState();
@@ -23,12 +25,6 @@ class _liststudentState extends State<liststudent> {
 
   Future<void> getheightforlength() async {
     Length = await GetArrayLength();
-    if (Length > 7) {
-      height = height * 7;
-    } else {
-      height = Length * height;
-    }
-    setState(() {});
   }
 
   Future<int> GetArrayLength() async {
@@ -50,11 +46,16 @@ class _liststudentState extends State<liststudent> {
             )));
   }
 
-  Widget Builddesktop() => Column(
+  Widget Builddesktop() => SingleChildScrollView(
+          child: Column(
         children: [
           const Navigatorbar(),
           const SizedBox(
-            height: 60,
+            height: 40,
+          ),
+          const Text("STUDENTS",style: TextStyle(fontSize: 32,fontWeight: FontWeight.w600),textAlign: TextAlign.center,),
+          const SizedBox(
+            height: 40,
           ),
           Container(
             decoration: BoxDecoration(
@@ -68,7 +69,7 @@ class _liststudentState extends State<liststudent> {
               stream: FirebaseFirestore.instance
                   .collection("Student")
                   .orderBy('Name', descending: true)
-                  .limit(7)
+                  .limit(limit)
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -114,9 +115,22 @@ class _liststudentState extends State<liststudent> {
                 }
               },
             ),
-          )
+          ),
+          ListTile(
+            title: const Text(
+              "See more..",
+              style: TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            onTap: () {
+              setState(() {
+                stagelimit = 1;
+                limit = limit + 5;
+              });
+            },
+          ),
         ],
-      );
+      ));
   Widget Buildmobile() => Column(
         children: [Text("liststudent of  mobile")],
       );

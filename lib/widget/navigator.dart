@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectweb/ApproveCategories.dart';
 import 'package:projectweb/Home.dart';
 import 'package:projectweb/liststudents.dart';
 
@@ -44,14 +45,18 @@ class Navigatorbar extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 22,
-                   
                     fontWeight: FontWeight.w400),
               )),
           const SizedBox(
             width: 40,
           ),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ApprovedCate()));
+              },
               child: const Text(
                 "ตรวจสอบหมวดหมู่",
                 style: TextStyle(
