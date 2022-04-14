@@ -60,29 +60,31 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+  
+ 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
 fonts:
     - family: Raleway
       fonts:
-        - asset: android/fonts/Raleway-Regular.ttf
-        - asset: android/fonts/Raleway-Italic.ttf
+        - asset: build/web/fonts/Raleway-Regular.ttf
+        - asset: build/web/fonts/Raleway-Italic.ttf
           style: italic
     - family: RobotoMono
       fonts:
-        - asset: android/fonts/RobotoMono-Regular.ttf
-        - asset: android/fonts/RobotoMono-Bold.ttf
-        - asset: android/fonts/RobotoMono-Light.ttf
+        - asset: build/web/fonts/RobotoMono-Regular.ttf
+        - asset: build/web/fonts/RobotoMono-Bold.ttf
+        - asset: build/web/fonts/RobotoMono-Light.ttf
           weight: 700
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+assets:
+    - icons/icontrue.png
   #   - images/a_dot_ham.jpeg
 
-  # An image asset can refer to one or more resolution-specific "variants", see
+  # An image asset can refer to one or more resolution-specพพพพific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
   # For details regarding adding assets from package dependencies, see

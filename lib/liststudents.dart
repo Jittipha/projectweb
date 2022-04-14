@@ -15,6 +15,26 @@ class liststudent extends StatefulWidget {
 }
 
 class _liststudentState extends State<liststudent> {
+  int stagelimit = 0;
+  int limit = 7;
+  int Length = 0;
+  double height = 78 * 7;
+  @override
+  void initState() {
+    super.initState();
+    getheightforlength();
+  }
+
+  Future<void> getheightforlength() async {
+    Length = await GetArrayLength();
+  }
+
+  Future<int> GetArrayLength() async {
+    QuerySnapshot snaps =
+        await FirebaseFirestore.instance.collection("Student").get();
+    return snaps.docs.length;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,21 +48,30 @@ class _liststudentState extends State<liststudent> {
             )));
   }
 
-  Widget Builddesktop() => Column(
+  Widget Builddesktop() => SingleChildScrollView(
+          child: Column(
         children: [
           const Navigatorbar(),
           const SizedBox(
-            height: 60,
+            height: 40,
+          ),
+          const Text("STUDENTS",style: TextStyle(fontSize: 32,fontWeight: FontWeight.w600),textAlign: TextAlign.center,),
+          const SizedBox(
+            height: 40,
           ),
           Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.greenAccent[400],
+            ),
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-            height: 500,
-            width: 700,
-            color: Colors.greenAccent[400],
+            height: height,
+            width: 650,
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("Student")
                   .orderBy('Name', descending: true)
+                  .limit(limit)
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -64,11 +93,11 @@ class _liststudentState extends State<liststudent> {
                         //   Text("ลบผู้ใช้งาน"),
                         // )),
                         leading: CircleAvatar(
-                          backgroundColor: Colors.white,
+                          backgroundColor: Colors.black,
                           radius: 55,
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(Student["Photo"]),
-                            radius: 20,
+                            radius: 23,
                           ),
                         ),
                         title: Text(
@@ -88,9 +117,22 @@ class _liststudentState extends State<liststudent> {
                 }
               },
             ),
-          )
+          ),
+          ListTile(
+            title: const Text(
+              "See more..",
+              style: TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            onTap: () {
+              setState(() {
+                stagelimit = 1;
+                limit = limit + 5;
+              });
+            },
+          ),
         ],
-      );
+      ));
   Widget Buildmobile() => Column(
         children: [Text("liststudent of  mobile")],
       );
