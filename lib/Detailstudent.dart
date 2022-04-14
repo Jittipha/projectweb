@@ -1,6 +1,6 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, file_names, must_be_immutable, camel_case_types, use_key_in_widget_constructors, non_constant_identifier_names, prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 
-import 'dart:js';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

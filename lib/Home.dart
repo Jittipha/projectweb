@@ -1,5 +1,6 @@
-import 'dart:html';
-import 'package:colour/colour.dart';
+
+// ignore_for_file: file_names, non_constant_identifier_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:projectweb/widget/navigator.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -26,12 +27,13 @@ class _HomepageState extends State<Homepage> {
   }
 
   Widget Builddesktop() => Column(
-        children: [Navigatorbar(), Text("listevent of desktop")],
+        children: [Navigatorbar(),
+         Text("listevent of desktop")],
       );
   Widget Buildmobile() => Column(
-        children: [Text("listevent of desktop mobile")],
+        children: [Navigatorbar(),Text("listevent of desktop mobile")],
       );
   Widget Buildtablet() => Column(
-        children: [Text("listevent of desktop tablet")],
+        children: [Navigatorbar(),Text("listevent of desktop tablet")],
       );
 }
