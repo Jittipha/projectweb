@@ -164,7 +164,7 @@ class _LoginState extends State<Login> {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(40))),
       validator: (value) {
         if (!validateRpass(value!)) {
-          return 'กรอกรหัสผ่านอย่างน้อย 8 ตัวเลข';
+          return 'กรอกรหัสผ่านอย่างน้อย 7 ตัวเลข';
         }
         return null;
       },
