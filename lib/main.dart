@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:projectweb/Home.dart';
 import 'package:projectweb/Login/login.dart';
+import 'package:projectweb/liststudents.dart';
 import 'package:projectweb/widget/navigator.dart';
 
 Future<void> main() async {
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const Login(),
+      home: const Homepage(),
     );
   }
 }

@@ -47,11 +47,6 @@ class _liststudentState extends State<liststudent> {
               mobile: Buildmobile(),
             )));
   }
-
-
-  // ignore: non_constant_identifier_names
-  
-
   Widget Builddesktop() => SingleChildScrollView(
           child: Column(
         children: [

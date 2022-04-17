@@ -1,6 +1,3 @@
-import 'package:algolia/algolia.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:projectweb/ApproveCategories.dart';
@@ -75,12 +72,11 @@ class _NavigatorbarState extends State<Navigatorbar> {
                 "ตรวจสอบหมวดหมู่",
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 22,
+                    fontSize: 21,
                     fontWeight: FontWeight.w400),
               )),
           const SizedBox(
-            width: 800,
-            
+            width: 1150,
           ),
           // ignore: deprecated_member_use
           ElevatedButton(
