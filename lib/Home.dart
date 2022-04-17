@@ -1,6 +1,6 @@
-import 'dart:html';
-import 'package:colour/colour.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:projectweb/seach.dart';
 import 'package:projectweb/widget/navigator.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -12,6 +12,31 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+   final TextEditingController _searchText = TextEditingController(text: "");
+  int length = 0;
+  double height = 78;
+  @override
+  void initState() {
+    super.initState();
+    getheightforlength();
+  }
+
+  Future<void> getheightforlength() async {
+    length = await getArrayLength();
+    if (length > 7) {
+      height = height * 7;
+    } else {
+      height = length * height;
+    }
+    setState(() {});
+  }
+
+  Future<int> getArrayLength() async {
+    QuerySnapshot snaps =
+        await FirebaseFirestore.instance.collection("Student").get();
+    return snaps.docs.length;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,19 +44,76 @@ class _HomepageState extends State<Homepage> {
         body: Container(
             padding: const EdgeInsets.all(60),
             child: ScreenTypeLayout(
-              desktop: Builddesktop(),
-              tablet: Buildtablet(),
-              mobile: Buildmobile(),
+              desktop: buildDesktop(),
+              tablet: buildTablet(),
+              mobile: buildMobile(),
             )));
   }
 
-  Widget Builddesktop() => Column(
-        children: [Navigatorbar(), Text("listevent of desktop")],
-      );
-  Widget Buildmobile() => Column(
+  Widget buildDesktop() => Column(children: [
+       
+        const Navigatorbar(),
+         SizedBox(
+         height: 60,
+        ),
+        // const SearchBar(),
+        Container(
+          //   child: TextField(
+          //   controller: _searchText,
+          //   decoration: const InputDecoration(hintText: "Search....."),
+          // ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.greenAccent[400],
+          ),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+          height: height,
+          width: 650,
+          child: StreamBuilder(
+            stream: FirebaseFirestore.instance.collection('Event').snapshots(),
+            builder: (context, AsyncSnapshot<QuerySnapshot> snapshots) {
+              if (snapshots.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return ListView(
+                    children: snapshots.data!.docs.map((event) {
+                  return Container(
+                    padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.black,
+                        radius: 55,
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(event["Image"]),
+                          radius: 23,
+                        ),
+                      ),
+                      title: Text(
+                        event["Name"],
+                        style: const TextStyle(fontSize: 22),
+                      ),
+                      onTap: () {
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             detailstudent(student: Student)));
+                      },
+                    ),
+                  );
+                }).toList());
+              }
+            },
+          ),
+        )
+      ]);
+
+  Widget buildMobile() => Column(
         children: [Text("listevent of desktop mobile")],
       );
-  Widget Buildtablet() => Column(
+  Widget buildTablet() => Column(
         children: [Text("listevent of desktop tablet")],
       );
 }

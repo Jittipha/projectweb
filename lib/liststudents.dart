@@ -50,6 +50,7 @@ class _liststudentState extends State<liststudent> {
             )));
   }
 
+  // ignore: non_constant_identifier_names
   Widget Builddesktop() => Column(
         children: [
           const Navigatorbar(),

@@ -39,6 +39,9 @@ dependencies:
   firebase_core: ^1.13.0
   cloud_firestore: ^3.1.9
   colour: ^1.0.5
+
+  algolia: ^1.0.4
+  firebase_auth: ^3.3.14
   
  
   
