@@ -13,14 +13,30 @@ class liststudent extends StatefulWidget {
 }
 
 class _liststudentState extends State<liststudent> {
+  int finaldata = 0;
   int stagelimit = 0;
   int limit = 7;
   int Length = 0;
-  double height = 78 * 7;
+  double height = 77 * 7;
   @override
   void initState() {
     super.initState();
     getheightforlength();
+  }
+
+  Future<void> addheight() async {
+    print(limit);
+    print(height);
+    if (Length - limit >= 0) {
+      height = height + 390;
+    } else if (Length - limit < 0) {
+      int a = 5 - (limit - Length);
+      print(a);
+      int sum = 77 * a;
+      height = height + sum;
+      finaldata = 2;
+    }
+    print(height);
   }
 
   Future<void> getheightforlength() async {
@@ -53,7 +69,11 @@ class _liststudentState extends State<liststudent> {
           const SizedBox(
             height: 40,
           ),
-          const Text("STUDENTS",style: TextStyle(fontSize: 32,fontWeight: FontWeight.w600),textAlign: TextAlign.center,),
+          const Text(
+            "STUDENTS",
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
+            textAlign: TextAlign.center,
+          ),
           const SizedBox(
             height: 40,
           ),
@@ -116,19 +136,23 @@ class _liststudentState extends State<liststudent> {
               },
             ),
           ),
-          ListTile(
-            title: const Text(
-              "See more..",
-              style: TextStyle(fontSize: 20),
-              textAlign: TextAlign.center,
-            ),
-            onTap: () {
-              setState(() {
-                stagelimit = 1;
-                limit = limit + 5;
-              });
-            },
-          ),
+          Container(
+              child: finaldata == 0
+                  ? ListTile(
+                      title: const Text(
+                        "See more..",
+                        style: TextStyle(fontSize: 20),
+                        textAlign: TextAlign.center,
+                      ),
+                      onTap: () {
+                        setState(() {
+                          stagelimit = 1;
+                          limit = limit + 5;
+                          addheight();
+                        });
+                      },
+                    )
+                  : Container()),
         ],
       ));
   Widget Buildmobile() => Column(
