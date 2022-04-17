@@ -1,8 +1,6 @@
+// import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-
-// ignore_for_file: file_names, non_constant_identifier_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:projectweb/widget/navigator.dart';
@@ -16,9 +14,76 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-   final TextEditingController _searchText = TextEditingController(text: "");
+  final TextEditingController _searchText = TextEditingController(text: "");
   int length = 0;
   double height = 78;
+
+  // TextEditingController _searchController = TextEditingController();
+
+  // Future? resultsLoaded;
+  // List _allResults = [];
+  // List _resultsList = [];
+  // Events events = Events();
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _searchController.addListener(_onSearchChanged);
+  // }
+
+  // @override
+  // void dispose() {
+  //   _searchController.removeListener(_onSearchChanged);
+  //   _searchController.dispose();
+  //   super.dispose();
+  // }
+
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   resultsLoaded = getUsersPastTripsStreamSnapshots();
+  // }
+
+  // _onSearchChanged() {
+  //   searchResultsList();
+  // }
+
+  // searchResultsList() {
+  //   var showResults = [];
+  //   var data =  FirebaseFirestore.instance.collection('Event').doc().get().then((value) => {
+  //         setState(() {
+  //           events.Image = value.data()?["Image"];
+
+  //           events.Date = value.data()?["Name"];
+  //         }),
+  //       });
+
+  //   if (_searchController.text != "") {
+  //     for (var tripSnapshot in _allResults) {
+  //       var title = data.title.toLowerCase();
+
+  //       if (title.contains(_searchController.text.toLowerCase())) {
+  //         showResults.add(tripSnapshot);
+  //       }
+  //     }
+  //   } else {
+  //     showResults = List.from(_allResults);
+  //   }
+  //   setState(() {
+  //     _resultsList = showResults;
+  //   });
+  // }
+
+  // getUsersPastTripsStreamSnapshots() async {
+  //   var data = await FirebaseFirestore.instance.collection('userData').get();
+
+  //   setState(() {
+  //     _allResults = data.docs;
+  //   });
+  //   searchResultsList();
+  //   return "complete";
+  // }
+
   @override
   void initState() {
     super.initState();
@@ -43,6 +108,7 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
         backgroundColor: Colors.greenAccent,
         body: Container(
@@ -54,12 +120,25 @@ class _HomepageState extends State<Homepage> {
             )));
   }
 
-
   Widget buildDesktop() => Column(children: [
-       
+        // const Text("Past Trips", style: TextStyle(fontSize: 20)),
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 30.0),
+        //   child: TextField(
+        //     controller: _searchController,
+        //     decoration: const InputDecoration(prefixIcon: Icon(Icons.search)),
+        //   ),
+        // ),
+        // Expanded(
+        //     child: ListView.builder(
+        //   itemCount: _resultsList.length,
+        //   itemBuilder: (BuildContext context, int index) =>
+        //       buildTripCard(context, _resultsList[index]),
+        // )),
+
         const Navigatorbar(),
-         SizedBox(
-         height: 60,
+        const SizedBox(
+          height: 60,
         ),
         // const SearchBar(),
         Container(
