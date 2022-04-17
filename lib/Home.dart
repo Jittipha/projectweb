@@ -1,6 +1,10 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+
+// ignore_for_file: file_names, non_constant_identifier_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
-import 'package:projectweb/seach.dart';
 import 'package:projectweb/widget/navigator.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -50,6 +54,7 @@ class _HomepageState extends State<Homepage> {
             )));
   }
 
+
   Widget buildDesktop() => Column(children: [
        
         const Navigatorbar(),
@@ -58,10 +63,6 @@ class _HomepageState extends State<Homepage> {
         ),
         // const SearchBar(),
         Container(
-          //   child: TextField(
-          //   controller: _searchText,
-          //   decoration: const InputDecoration(hintText: "Search....."),
-          // ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.greenAccent[400],

@@ -2,8 +2,13 @@ import 'package:algolia/algolia.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:projectweb/ApproveCategories.dart';
 import 'package:projectweb/Home.dart';
+import 'package:projectweb/Login/login.dart';
 import 'package:projectweb/liststudents.dart';
+
+
 
 class Navigatorbar extends StatefulWidget {
   const Navigatorbar({Key? key}) : super(key: key);
@@ -13,103 +18,97 @@ class Navigatorbar extends StatefulWidget {
 }
 
 class _NavigatorbarState extends State<Navigatorbar> {
-  final TextEditingController _searchText = TextEditingController(text: "");
-  List<AlgoliaObjectSnapshot> results = [];
-  bool searching = false;
-  _search() async {
-    setState(() {
-      searching = true;
-    });
-
-    Algolia algolia = const Algolia.init(
-      applicationId: 'ZO4XKCM05Q',
-      apiKey: 'b57d151dcd4821d1df6a23485e70ec2d',
-    );
-
-    AlgoliaQuery query = algolia.instance.index('Event');
-    query = query.search(_searchText.text);
-
-    results = (await query.getObjects()).hits;
-
-    setState(() {
-      searching = false;
-    });
-  }
-
+  
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.greenAccent[700],
-              border: Border.all(color: Colors.black)),
-          height: 100,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 40,
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Homepage()));
-                      },
-                      child: const Text(
-                        "โพสต์กิจกรรม",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 22),
-                      )),
-                  const SizedBox(
-                    width: 40,
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const liststudent()));
-                      },
-                      child: const Text(
-                        "นักศึกษา",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w400),
-                      )),
-                  const SizedBox(
-                    width: 40,
-                  ),
-                  TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "ตรวจสอบหมวดหมู่",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w400),
-                      )),
-                 
-                ],
-              ),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.greenAccent[700],
+          border: Border.all(color: Colors.black)),
+      height: 100,
+      child: Row(
+        children: [
+          const SizedBox(
+            width: 40,
+
+          ),
+          TextButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Homepage()));
+              },
+              child: const Text(
+                "โพสต์กิจกรรม",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 22),
+              )),
+              const SizedBox(
+            width: 40,
+          ),
+          TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const liststudent()));
+              },
+              child: const Text(
+                "นักศึกษา",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400),
+              )),
+          const SizedBox(
+            width: 40,
+          ),
+          TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ApprovedCate()));
+              },
+              child: const Text(
+                "ตรวจสอบหมวดหมู่",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400),
+              )),
+          const SizedBox(
+            width: 800,
             
-            ],
           ),
-        ),
-        Container(width: 650,
-          child: TextField(
-            controller: _searchText,
-            decoration: const InputDecoration(hintText: "Search....."),
-          ),
-        ),
-      ],
+          // ignore: deprecated_member_use
+          ElevatedButton(
+              onPressed: () {
+                 GetStorage box = GetStorage();
+                 box.remove('email');
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const Login()));
+              },
+              child: const Text(
+                "Logout",
+                style: TextStyle(color: Color.fromARGB(255, 14, 10, 0), fontSize: 15),
+                
+              ),
+              style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 224, 229, 227)),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6.0),
+              side: const BorderSide(color: Colors.black)
+              
+              )
+              ),
+              )
+          )
+        ],
+      ),
+
     );
   }
 }

@@ -1,13 +1,11 @@
-// ignore_for_file: deprecated_member_use
-
-import 'dart:js';
+// ignore_for_file: deprecated_member_use, file_names, must_be_immutable, camel_case_types, use_key_in_widget_constructors, non_constant_identifier_names, prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, duplicate_ignore, avoid_function_literals_in_foreach_calls
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class detailstudent extends StatefulWidget {
-  detailstudent({required this.student});
+  detailstudent({Key? key, required this.student}) : super(key: key);
   QueryDocumentSnapshot student;
 
   @override
@@ -28,9 +26,10 @@ class _detailstudentState extends State<detailstudent> {
             )));
   }
 
+  // ignore: non_constant_identifier_names
   Widget Builddesktop(BuildContext context) => Row(children: [
         Container(
-            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
             width: 900,
             child: Align(
                 alignment: Alignment.topCenter,
@@ -41,7 +40,7 @@ class _detailstudentState extends State<detailstudent> {
                       radius: 195,
                       backgroundImage: NetworkImage(widget.student["Photo"]),
                     )))),
-        Container(
+        SizedBox(
             width: 900,
             child: Column(
               children: [
@@ -110,6 +109,7 @@ class _detailstudentState extends State<detailstudent> {
                                     child: ListView(
                                         scrollDirection: Axis.horizontal,
                                         children: snapshot.data!.docs
+                                            // ignore: non_constant_identifier_names
                                             .map((Postofstudent) {
                                           return Container(
                                             padding: const EdgeInsets.fromLTRB(
@@ -201,10 +201,12 @@ class _detailstudentState extends State<detailstudent> {
             ))
       ]);
 
+  // ignore: non_constant_identifier_names
   Widget Buildmobile() => Column(
         children: [Text("listevent of desktop mobile")],
       );
 
+  // ignore: non_constant_identifier_names
   Widget Buildtablet() => Column(
         children: [Text("listevent of desktop tablet")],
       );
