@@ -90,7 +90,7 @@ Future<void> addheight() async {
               stream: FirebaseFirestore.instance
                   .collection("PreCategories")
                   .orderBy('Name', descending: true)
-                  .limit(7)
+                  .limit(limit)
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -172,25 +172,24 @@ Future<void> addheight() async {
               },
             ),
           ),
-          Container(
-            child:  finaldata == 0 || Length < 7 ?
-            
-            Container()
-            : ListTile(
-              title: const Text(
-                "See more..",
-                style: TextStyle(fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-              onTap: () {
-                setState(() {
-                  stagelimit = 1;
+         Container(
+                child: finaldata == 0 || Length < 7
+                    ? ListTile(
+                        title: const Text(
+                          "See more..",
+                          style: TextStyle(fontSize: 20),
+                          textAlign: TextAlign.center,
+                        ),
+                        onTap: () {
+                          setState(() {
+                            stagelimit = 1;
                             limit = limit + 5;
                             addheight();
-                });
-              },
-            )
-          ),
+                            
+                          });
+                        },
+                      )
+                    : Container()),
         ],
       ));
 

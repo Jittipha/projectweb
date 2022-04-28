@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-// import 'package:get_storage/get_storage.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:projectweb/Home.dart';
 import 'package:projectweb/Model/Admin.dart';
 
@@ -72,8 +72,8 @@ class _LoginState extends State<Login> {
                             formkey.currentState!.reset();
                           } else {
                             //เก็บค่าEmailที่มีอยู่ไปทุกๆหน้า
-                            // GetStorage box = GetStorage();
-                            // box.write('email', admin.Email);
+                            GetStorage box = GetStorage();
+                            box.write('email', admin.Email);
 
                             Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(

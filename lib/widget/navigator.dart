@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'package:projectweb/ApproveCategories.dart';
 import 'package:projectweb/Home.dart';
@@ -81,8 +82,8 @@ class _NavigatorbarState extends State<Navigatorbar> {
           // ignore: deprecated_member_use
           ElevatedButton(
               onPressed: () {
-                //  GetStorage box = GetStorage();
-                //  box.remove('email');
+                  GetStorage box = GetStorage();
+                  box.remove('email');
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => const Login()));
               },

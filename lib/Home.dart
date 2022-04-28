@@ -1,13 +1,14 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 
 // ignore_for_file: file_names, non_constant_identifier_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:projectweb/DetailEvent.dart';
+import 'package:projectweb/Login/login.dart';
+import 'package:projectweb/liststudents.dart';
 import 'package:projectweb/widget/navigator.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:get_storage/get_storage.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -19,11 +20,27 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   int length = 0;
   double height = 78;
+  GetStorage box = GetStorage();
   @override
   void initState() {
     super.initState();
+    print(box.read('email'));
+    
+    // if (box.read('email') == null) {
+    //   Navigator.of(context).pushReplacement(
+    //       MaterialPageRoute(builder: (context) => const Login()));
+    // }
     getheightforlength();
   }
+
+  // Future<void> checkloginValue() async {
+
+  //   if (box.read('email') != null) {
+  //     print("NEXT");
+  //   } else {
+
+  //   }
+  // }
 
   Future<void> getheightforlength() async {
     length = await getArrayLength();
@@ -53,11 +70,11 @@ class _HomepageState extends State<Homepage> {
               mobile: buildMobile(),
             )));
   }
+
   Widget buildDesktop() => Column(children: [
-       
         const Navigatorbar(),
-         SizedBox(
-         height: 60,
+        SizedBox(
+          height: 60,
         ),
         // const SearchBar(),
         Container(
