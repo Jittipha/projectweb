@@ -23,6 +23,7 @@ class liststudent extends StatefulWidget {
 }
 
 class _liststudentState extends State<liststudent> {
+  // ignore: prefer_final_fields
   TextEditingController _searchController = TextEditingController();
   GetStorage box = GetStorage();
   int finaldata = 0;
@@ -157,7 +158,7 @@ class _liststudentState extends State<liststudent> {
                         vertical: 10, horizontal: 10),
                     border: OutlineInputBorder(),
                     labelText: 'Search.....',
-                    hintText: "Enter your Eventname"),
+                    hintText: "Enter your Studentname"),
               ),
             ),
             const SizedBox(
