@@ -34,19 +34,33 @@ class _detailcateState extends State<detailcate> {
   // ignore: non_constant_identifier_names
   Widget Builddesktop(BuildContext context) => Row(children: [
         Container(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            width: 900,
+            padding: const EdgeInsets.fromLTRB(0, 45, 0, 0),
+            width: MediaQuery.of(context).size.width * 0.45,
             child: Align(
                 alignment: Alignment.topCenter,
-                child: CircleAvatar(
-                    radius: 200,
-                    backgroundColor: Colors.greenAccent[700],
-                    child: CircleAvatar(
-                      radius: 195,
-                      backgroundImage: NetworkImage(widget.Precate["Image"]),
-                    )))),
+                child: Container(
+                  padding: const EdgeInsets.all(8), // Border width
+                  decoration: BoxDecoration(
+                      color: Colors.greenAccent[400],
+                      borderRadius: BorderRadius.circular(20)),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: SizedBox.fromSize(
+                      size: const Size.fromRadius(200), // Image radius
+                      child: Image.network(widget.Precate["Image"],
+                          fit: BoxFit.cover),
+                    ),
+                  ),
+                ))),
+        // CircleAvatar(
+        //     radius: 200,
+        //     backgroundColor: Colors.greenAccent[700],
+        //     child: CircleAvatar(
+        //       radius: 195,
+        //       backgroundImage: NetworkImage(widget.Precate["Image"]),
+        //     )))),
         SizedBox(
-            width: 900,
+            width: MediaQuery.of(context).size.width * 0.45,
             child: Column(
               children: [
                 const SizedBox(
@@ -75,7 +89,7 @@ class _detailcateState extends State<detailcate> {
                 const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Host",
+                      "Host   :  ",
                       style: TextStyle(fontSize: 35),
                       textAlign: TextAlign.left,
                     )),
@@ -85,7 +99,7 @@ class _detailcateState extends State<detailcate> {
                 Row(
                   children: [
                     const SizedBox(
-                      width: 20,
+                      width: 50,
                     ),
                     CircleAvatar(
                       radius: 50,
@@ -97,7 +111,7 @@ class _detailcateState extends State<detailcate> {
                       ),
                     ),
                     const SizedBox(
-                      width: 25,
+                      width: 40,
                     ),
                     Text(
                       widget.Precate['Student'][0]["Name"],
@@ -109,7 +123,7 @@ class _detailcateState extends State<detailcate> {
                   height: 20,
                 ),
                 Container(
-                    padding: const EdgeInsets.fromLTRB(60, 20, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(30, 20, 0, 0),
                     child: Row(
                       children: [
                         GestureDetector(
@@ -137,14 +151,13 @@ class _detailcateState extends State<detailcate> {
                               width: 150,
                             )),
                         const SizedBox(
-                          width: 50,
+                          width: 30,
                         ),
                         GestureDetector(
                             onTap: () {
                               Bigtextstatus = 'INCORRECT!';
                               Status = 'incorrect';
                               showAlert(context);
-                              
                             },
                             child: Container(
                               padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -156,6 +169,30 @@ class _detailcateState extends State<detailcate> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     'INCORRECT',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500),
+                                  )),
+                              height: 60,
+                              width: 150,
+                            )),
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.blueGrey),
+                              child: const Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'BACK',
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 20,

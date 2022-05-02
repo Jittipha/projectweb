@@ -265,7 +265,7 @@ class _liststudentState extends State<liststudent> {
                       }),
             ),
             Container(
-                child: finaldata == 0 || Length < 7
+                child:  Length > 7
                     ? ListTile(
                         title: const Text(
                           "See more..",

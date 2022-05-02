@@ -29,7 +29,7 @@ class _datailEventState extends State<datailEvent> {
   Widget Builddesktop(BuildContext context) => Row(children: [
         Container(
             padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            width: 900,
+            width: MediaQuery.of(context).size.width * 0.40,
             height: 400,
             child: Align(
                 alignment: Alignment.topCenter,
@@ -41,13 +41,13 @@ class _datailEventState extends State<datailEvent> {
                       backgroundImage: NetworkImage(widget.Event["Image"]),
                     )))),
         Container(
-           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 219, 236, 225),
-            border: Border.all(color: Colors.black),
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-           padding: const EdgeInsets.all(50.0),
-            width:600,
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 219, 236, 225),
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            padding: const EdgeInsets.all(50.0),
+            width: MediaQuery.of(context).size.width * 0.45,
             height: 700,
             child: ListView(
               children: [
@@ -80,7 +80,8 @@ class _datailEventState extends State<datailEvent> {
                         alignment: Alignment.centerLeft,
                         child: CircleAvatar(
                             radius: 40,
-                            backgroundColor: const Color.fromARGB(255, 15, 15, 15),
+                            backgroundColor:
+                                const Color.fromARGB(255, 15, 15, 15),
                             child: CircleAvatar(
                               radius: 38,
                               backgroundImage: NetworkImage(
