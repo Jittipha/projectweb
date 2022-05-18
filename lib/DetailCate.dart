@@ -264,8 +264,8 @@ class _detailcateState extends State<detailcate> {
   void addtoCategory() async {
     await FirebaseFirestore.instance.collection("Category").doc().set({
       'Name': widget.Precate["Name"],
-      'Description': widget.Precate["Image"],
-      'Image': widget.Precate["Description"]
+      'Description': widget.Precate["Description"],
+      'Image': widget.Precate["Image"]
     });
   }
 
