@@ -285,10 +285,14 @@ class _liststudentState extends State<liststudent> {
           ],
         ),
       );
-  Widget Buildmobile() => Column(
-        children: [Text("liststudent of  mobile")],
-      );
-  Widget Buildtablet() => Column(
-        children: [Text("liststudent of  tablet")],
-      );
+  Widget Buildmobile() =>Center(
+          child: Text(
+        "โปรดขยายหน้าจอ !!",
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+      ));
+  Widget Buildtablet() => Center(
+          child: Text(
+        "โปรดขยายหน้าจอ !!",
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+      ));
 }

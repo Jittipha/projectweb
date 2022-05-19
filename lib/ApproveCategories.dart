@@ -14,7 +14,7 @@ class ApprovedCate extends StatefulWidget {
 }
 
 class _ApprovedCateState extends State<ApprovedCate> {
-   int finaldata = 0;
+  int finaldata = 0;
   int stagelimit = 0;
   int limit = 7;
   int Length = 0;
@@ -23,10 +23,9 @@ class _ApprovedCateState extends State<ApprovedCate> {
   void initState() {
     super.initState();
     getheightforlength();
-    
   }
 
-Future<void> addheight() async {
+  Future<void> addheight() async {
     print(limit);
     print(height);
     if (Length - limit >= 0) {
@@ -40,6 +39,7 @@ Future<void> addheight() async {
     }
     print(height);
   }
+
   Future<void> getheightforlength() async {
     Length = await GetArrayLength();
   }
@@ -163,7 +163,7 @@ Future<void> addheight() async {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      detailcate(Precate : PreCate)));
+                                      detailcate(Precate: PreCate)));
                         },
                       ),
                     );
@@ -172,28 +172,35 @@ Future<void> addheight() async {
               },
             ),
           ),
-         Container(
-                child:  Length > 7
-                    ? ListTile(
-                        title: const Text(
-                          "See more..",
-                          style: TextStyle(fontSize: 20),
-                          textAlign: TextAlign.center,
-                        ),
-                        onTap: () {
-                          setState(() {
-                            stagelimit = 1;
-                            limit = limit + 5;
-                            addheight();
-                            
-                          });
-                        },
-                      )
-                    : Container()),
+          Container(
+              child: Length > 7
+                  ? ListTile(
+                      title: const Text(
+                        "See more..",
+                        style: TextStyle(fontSize: 20),
+                        textAlign: TextAlign.center,
+                      ),
+                      onTap: () {
+                        setState(() {
+                          stagelimit = 1;
+                          limit = limit + 5;
+                          addheight();
+                        });
+                      },
+                    )
+                  : Container()),
         ],
       ));
 
-  Widget Buildtablet() => Column();
+  Widget Buildtablet() => const Center(
+          child: Text(
+        "โปรดขยายหน้าจอ",
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+      ));
 
-  Widget Buildmobile() => Column();
+  Widget Buildmobile() => const Center(
+          child: Text(
+        "โปรดขยายหน้าจอ !!",
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+      ));
 }

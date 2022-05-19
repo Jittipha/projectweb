@@ -203,14 +203,18 @@ class _detailstudentState extends State<detailstudent> {
       ]);
 
   // ignore: non_constant_identifier_names
-  Widget Buildmobile() => Column(
-        children: [Text("listevent of desktop mobile")],
-      );
+  Widget Buildmobile() => const Center(
+          child: Text(
+        "โปรดขยายหน้าจอ !!",
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+      ));
 
   // ignore: non_constant_identifier_names
-  Widget Buildtablet() => Column(
-        children: [Text("listevent of desktop tablet")],
-      );
+  Widget Buildtablet() => const Center(
+          child: Text(
+        "โปรดขยายหน้าจอ !!",
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+      ));
 
   showAlertDialog(context) {
     // set up the button

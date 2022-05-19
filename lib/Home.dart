@@ -59,6 +59,7 @@ class _HomepageState extends State<Homepage> {
     _searchController.dispose();
     super.dispose();
   }
+
 //เม็ดตอธทำงานก่อน widget build
   @override
   void didChangeDependencies() {
@@ -67,7 +68,8 @@ class _HomepageState extends State<Homepage> {
     //ซึ่งเท่ากับ complete
     resultsLoaded = Getdata();
   }
-//ดึงข้อมูลทั้งหมดมาเก็บใน allresult 
+
+//ดึงข้อมูลทั้งหมดมาเก็บใน allresult
   Getdata() async {
     var data = await FirebaseFirestore.instance
         .collection('Event')
@@ -77,7 +79,7 @@ class _HomepageState extends State<Homepage> {
       _allresult = data.docs;
     });
     searchResultList();
-    
+
     return "complete";
   }
 
@@ -208,10 +210,14 @@ class _HomepageState extends State<Homepage> {
                 }))
       ]);
 
-  Widget buildMobile() => Column(
-        children: [Text("listevent of desktop mobile")],
-      );
-  Widget buildTablet() => Column(
-        children: [Text("listevent of desktop tablet")],
-      );
+  Widget buildMobile() => Center(
+          child: Text(
+        "โปรดขยายหน้าจอ !!",
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+      ));
+  Widget buildTablet() => Center(
+          child: Text(
+        "โปรดขยายหน้าจอ !!",
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+      ));
 }
