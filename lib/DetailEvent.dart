@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:projectweb/Home.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class datailEvent extends StatefulWidget {
@@ -217,6 +218,10 @@ class _datailEventState extends State<datailEvent> {
           DeleteEvent();
           Navigator.pop(context);
           Navigator.pop(context);
+          Navigator.push(
+            context,
+            new MaterialPageRoute(builder: (context) => new Homepage()),
+          );
         });
 
     // ignore: deprecated_member_use

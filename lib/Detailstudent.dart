@@ -234,9 +234,10 @@ class _detailstudentState extends State<detailstudent> {
           DeleteStudent();
           DeleteComment();
           Navigator.pop(context);
-          Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => const liststudent()));
+          Navigator.push(
+                  context,
+                  new MaterialPageRoute(builder: (context) => new liststudent()),
+                );
           // Navigator.pop(context);
         });
 

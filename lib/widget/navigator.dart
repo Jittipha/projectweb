@@ -6,8 +6,6 @@ import 'package:projectweb/Home.dart';
 import 'package:projectweb/Login/login.dart';
 import 'package:projectweb/liststudents.dart';
 
-
-
 class Navigatorbar extends StatefulWidget {
   const Navigatorbar({Key? key}) : super(key: key);
 
@@ -16,12 +14,11 @@ class Navigatorbar extends StatefulWidget {
 }
 
 class _NavigatorbarState extends State<Navigatorbar> {
-  
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.greenAccent[700],
+          color: Colors.greenAccent[700],
           border: Border.all(color: Colors.black)),
       height: 100,
       width: MediaQuery.of(context).size.width * 1,
@@ -34,12 +31,14 @@ class _NavigatorbarState extends State<Navigatorbar> {
 
             // ),
             Container(
-              padding: const EdgeInsets.fromLTRB(0, 10,0,0),
-              width: MediaQuery.of(context).size.width * 0.1,
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              width: MediaQuery.of(context).size.width * 0.2,
               child: TextButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Homepage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Homepage()));
                   },
                   child: const Text(
                     "โพสต์กิจกรรม",
@@ -53,9 +52,9 @@ class _NavigatorbarState extends State<Navigatorbar> {
             //   width: 40,
             // ),
             Container(
-               padding: const EdgeInsets.fromLTRB(0, 0,0,0),
-              width: MediaQuery.of(context).size.width * 0.1,
-             
+              
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+              width: MediaQuery.of(context).size.width * 0.2,
               child: TextButton(
                   onPressed: () {
                     Navigator.push(
@@ -75,9 +74,8 @@ class _NavigatorbarState extends State<Navigatorbar> {
             //   width: 40,
             // ),
             Container(
-               padding: const EdgeInsets.fromLTRB(0, 0,0,0),
-              width: MediaQuery.of(context).size.width * 0.1,
-              
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+              width: MediaQuery.of(context).size.width * 0.2,
               child: TextButton(
                   onPressed: () {
                     Navigator.push(
@@ -93,45 +91,37 @@ class _NavigatorbarState extends State<Navigatorbar> {
                         fontWeight: FontWeight.w400),
                   )),
             ),
-             Container(
-               
-              width: MediaQuery.of(context).size.width * 0.55,
-              
+            Container(
+              width: MediaQuery.of(context).size.width * 0.15,
             ),
             // ignore: deprecated_member_use
-             Container(
-                padding: const EdgeInsets.fromLTRB(0, 0,0,0),
-              width: MediaQuery.of(context).size.width * 0.05,
-              
-               child: ElevatedButton(
-                    onPressed: () {
-                        GetStorage box = GetStorage();
-                        box.remove('email');
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => const Login()));
-                    },
-                    child: const Text(
-                      "Logout",
-                      style: TextStyle(color: Color.fromARGB(255, 14, 10, 0), fontSize: 15),
-                      
-                    ),
-                    style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 224, 229, 227)),
+            Container(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+              width: MediaQuery.of(context).size.width * 0.10,
+              child: ElevatedButton(
+                  onPressed: () {
+                    GetStorage box = GetStorage();
+                    box.remove('email');
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => const Login()));
+                  },
+                  child: const Text(
+                    "Logout",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 14, 10, 0), fontSize: 15),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        const Color.fromARGB(255, 224, 229, 227)),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6.0),
-                    side: const BorderSide(color: Colors.black)
-                    
-                    )
-                    ),
-                    )
-                ),
-             ),
-            
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6.0),
+                            side: const BorderSide(color: Colors.black))),
+                  )),
+            ),
           ],
         ),
       ),
-
     );
   }
 }
