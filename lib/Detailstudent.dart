@@ -41,7 +41,7 @@ class _detailstudentState extends State<detailstudent> {
                       radius: 195,
                       backgroundImage: NetworkImage(widget.student["Photo"]),
                     )))),
-        SizedBox(
+        Container(
             width: MediaQuery.of(context).size.width * 0.45,
             child: Column(
               children: [
@@ -76,77 +76,74 @@ class _detailstudentState extends State<detailstudent> {
                       textAlign: TextAlign.left,
                     )),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
-                SizedBox(
-                    height: 200,
-                    child: Expanded(
-                        child: StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection("Student")
-                                .doc(widget.student.id)
-                                .collection("Posts")
-                                .snapshots(),
-                            builder: (context,
-                                AsyncSnapshot<QuerySnapshot> snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                                // ignore: prefer_is_empty
-                              } else if (snapshot.data?.docs.length == 0) {
-                                return Container(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                                    child: const Text(
-                                      "NOT HAVE EVENT.",
-                                      style: TextStyle(
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.w300),
-                                    ));
-                              } else {
-                                return SizedBox(
-                                    child: ListView(
-                                        scrollDirection: Axis.horizontal,
-                                        children: snapshot.data!.docs
-                                            // ignore: non_constant_identifier_names
-                                            .map((Postofstudent) {
-                                          return Container(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                0, 35, 10, 0),
-                                            // color: Colors.white,
-
-                                            child: Column(
-                                              children: [
-                                                CircleAvatar(
-                                                  radius: 50,
-                                                  backgroundColor: Colors
-                                                      .lightBlueAccent[100],
-                                                  child: CircleAvatar(
-                                                    radius: 48,
-                                                    backgroundImage:
-                                                        NetworkImage(
-                                                            Postofstudent[
-                                                                "Image"]),
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 15,
-                                                ),
-                                                Text(
-                                                  Postofstudent["Name"],
-                                                  style: const TextStyle(
-                                                      fontSize: 18),
-                                                )
-                                              ],
-                                            ),
-                                          );
-                                        }).toList()));
-                              }
-                            }))),
                 Container(
-                    padding: const EdgeInsets.fromLTRB(60, 20, 0, 0),
+                  // alignment: Alignment.centerLeft,
+                  height: 220,
+                  width: 800,
+
+                  child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection("Student")
+                          .doc(widget.student.id)
+                          .collection("Posts")
+                          .snapshots(),
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                          // ignore: prefer_is_empty
+                        } else if (snapshot.data?.docs.length == 0) {
+                          return Center(
+                              // padding: const EdgeInsets.fromLTRB(0, 50, 50, 0),
+                              child: const Text(
+                            "NOT HAVE EVENT.",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.w300),
+                          ));
+                        } else {
+                          return ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: snapshot.data!.docs
+                                // ignore: non_constant_identifier_names
+                                .map((Postofstudent) {
+                              return Container(
+                                padding: const EdgeInsets.fromLTRB(0, 5, 10, 0),
+                                // color: Colors.white,
+
+                                child: Column(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 50,
+                                      backgroundColor:
+                                          Colors.lightBlueAccent[100],
+                                      child: CircleAvatar(
+                                        radius: 48,
+                                        backgroundImage: NetworkImage(
+                                            Postofstudent["Image"]),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text(
+                                      Postofstudent["Name"],
+                                      style: const TextStyle(fontSize: 18),
+                                    )
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                          );
+                        }
+                      }),
+                ),
+                Container(
+                    padding: const EdgeInsets.fromLTRB(60, 10, 0, 0),
                     child: Row(
                       children: [
                         GestureDetector(
@@ -239,9 +236,9 @@ class _detailstudentState extends State<detailstudent> {
           DeleteComment();
           Navigator.pop(context);
           Navigator.push(
-                  context,
-                  new MaterialPageRoute(builder: (context) => new liststudent()),
-                );
+            context,
+            new MaterialPageRoute(builder: (context) => new liststudent()),
+          );
           // Navigator.pop(context);
         });
 

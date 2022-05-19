@@ -1,8 +1,6 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // ignore_for_file: camel_case_types, non_constant_identifier_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -265,7 +263,7 @@ class _liststudentState extends State<liststudent> {
                       }),
             ),
             Container(
-                child:  Length > 7
+                child: Length > 7
                     ? ListTile(
                         title: const Text(
                           "See more..",
@@ -285,7 +283,7 @@ class _liststudentState extends State<liststudent> {
           ],
         ),
       );
-  Widget Buildmobile() =>Center(
+  Widget Buildmobile() => Center(
           child: Text(
         "โปรดขยายหน้าจอ !!",
         style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
