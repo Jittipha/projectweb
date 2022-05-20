@@ -223,8 +223,8 @@ class _detailstudentState extends State<detailstudent> {
               .doc(widget.student.id)
               .collection("Joined")
               .get();
-          snap.docs.forEach((data) {
-            FirebaseFirestore.instance
+          snap.docs.forEach((data) async {
+            await FirebaseFirestore.instance
                 .collection("Event")
                 .doc(data.id)
                 .collection("Joined")
@@ -232,13 +232,20 @@ class _detailstudentState extends State<detailstudent> {
                 .delete();
           });
           DeleteNoti();
-          DeleteStudent();
+          DeleteContainStudent();
           DeleteComment();
+          DeleteStudent();
           Navigator.pop(context);
-          Navigator.push(
+          Navigator.pop(context);
+          await Navigator.push(
             context,
             new MaterialPageRoute(builder: (context) => new liststudent()),
           );
+
+          // Navigator.push(
+          //   context,
+          //   new MaterialPageRoute(builder: (context) => new liststudent()),
+          // );
           // Navigator.pop(context);
         });
 
@@ -281,7 +288,7 @@ class _detailstudentState extends State<detailstudent> {
   }
 
   // ignore: non_constant_identifier_names
-  void DeleteStudent() async {
+  void DeleteContainStudent() async {
     QuerySnapshot snapcolCate = await FirebaseFirestore.instance
         .collection("Student")
         .doc(widget.student.id)
@@ -300,8 +307,8 @@ class _detailstudentState extends State<detailstudent> {
         .doc(widget.student.id)
         .collection("Joined")
         .get();
-    snapcolJoin.docs.forEach((element) {
-      FirebaseFirestore.instance
+    snapcolJoin.docs.forEach((element) async {
+      await FirebaseFirestore.instance
           .collection("Student")
           .doc(widget.student.id)
           .collection("Joined")
@@ -313,33 +320,36 @@ class _detailstudentState extends State<detailstudent> {
         .doc(widget.student.id)
         .collection("Posts")
         .get();
-    snapcolPosts.docs.forEach((element) {
-      FirebaseFirestore.instance
+    snapcolPosts.docs.forEach((element) async {
+      await FirebaseFirestore.instance
           .collection("Student")
           .doc(widget.student.id)
           .collection("Posts")
           .doc(element.id)
           .delete();
     });
-    await FirebaseFirestore.instance
-        .collection("Student")
-        .doc(widget.student.id)
-        .delete();
   }
 
   // ignore: non_constant_identifier_names
   void DeleteComment() async {
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection("Comment")
         .where("sId", isEqualTo: widget.student.id)
         .get()
         .then((value) => {
-              value.docs.forEach((element) {
-                FirebaseFirestore.instance
+              value.docs.forEach((element) async {
+                await FirebaseFirestore.instance
                     .collection("Comment")
                     .doc(element.id)
                     .delete();
               })
             });
+  }
+
+  void DeleteStudent() async {
+    await FirebaseFirestore.instance
+        .collection("Student")
+        .doc(widget.student.id)
+        .delete();
   }
 }

@@ -27,19 +27,15 @@ class _liststudentState extends State<liststudent> {
   int finaldata = 0;
   int stagelimit = 0;
   int limit = 7;
-  int Length = 0;
-  double height = 77 * 7;
+  int length = 0;
+  double height = 77;
   late Future resultsLoaded;
   List _allresult = [];
   List _resultList = [];
   @override
   void initState() {
     super.initState();
-    //  if (box.read('email') == null) {
-    //   Navigator.of(context).pushReplacement(
-    //       MaterialPageRoute(builder: (context) => const Login()));
-    // }
-
+    Getdata();
     getheightforlength();
     _searchController.addListener((_onSearchChanged));
   }
@@ -61,7 +57,6 @@ class _liststudentState extends State<liststudent> {
     var data = await FirebaseFirestore.instance
         .collection("Student")
         .orderBy('Name', descending: true)
-        .limit(limit)
         .get();
     setState(() {
       _allresult = data.docs;
@@ -91,26 +86,33 @@ class _liststudentState extends State<liststudent> {
     });
   }
 
-  Future<void> addheight(int lengthresult) async {
-    print(limit);
-    print(height);
-    if (Length - limit >= 0) {
-      height = height + 390;
-    } else if (Length - limit < 0) {
-      int a = 5 - (limit - Length);
-      print(a);
-      int sum = 77 * a;
-      height = height + sum;
-      finaldata = 2;
-    }
-    print(height);
-  }
+  // Future<void> addheight(int lengthresult) async {
+  //   print(limit);
+  //   print(height);
+  //   if (Length - limit >= 0) {
+  //     height = height + 390;
+  //   } else if (Length - limit < 0) {
+  //     int a = 5 - (limit - Length);
+  //     print(a);
+  //     int sum = 77 * a;
+  //     height = height + sum;
+  //     finaldata = 2;
+  //   }
+  //   print(height);
+  // }
 
   Future<void> getheightforlength() async {
-    Length = await GetArrayLength();
+    length = await getArrayLength();
+    if (length > 7) {
+      height = height * 7;
+    } else {
+      height = length * height;
+    }
+    setState(() {});
+    // Length = await GetArrayLength();
   }
 
-  Future<int> GetArrayLength() async {
+  Future<int> getArrayLength() async {
     QuerySnapshot snaps =
         await FirebaseFirestore.instance.collection("Student").get();
     return snaps.docs.length;
@@ -169,117 +171,55 @@ class _liststudentState extends State<liststudent> {
               ),
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
               height: height,
-              width: 650,
-              child:
-                  //  _searchController.text == null
-                  //     ? StreamBuilder(
-                  //         stream: FirebaseFirestore.instance
-                  //             .collection("Student")
-                  //             .orderBy('Name', descending: true)
-                  //             .limit(limit)
-                  //             .snapshots(),
-                  //         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  //           if (snapshot.connectionState == ConnectionState.waiting) {
-                  //             return const Center(
-                  //               child: CircularProgressIndicator(),
-                  //             );
-                  //           } else {
-                  //             return ListView(
-                  //                 children: snapshot.data!.docs.map((Student) {
-                  //               return Container(
-                  //                 padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
-                  //                 child: ListTile(
-                  //                   // trailing: const Card(
-                  //                   //     child: InkWell(
-                  //                   //       onTap:() {
-
-                  //                   //       },
-                  //                   //   child:
-                  //                   //   Text("ลบผู้ใช้งาน"),
-                  //                   // )),
-                  //                   leading: CircleAvatar(
-                  //                     backgroundColor: Colors.black,
-                  //                     radius: 55,
-                  //                     child: CircleAvatar(
-                  //                       backgroundImage:
-                  //                           NetworkImage(Student["Photo"]),
-                  //                       radius: 23,
-                  //                     ),
-                  //                   ),
-                  //                   title: Text(
-                  //                     Student["Name"],
-                  //                     style: const TextStyle(fontSize: 22),
-                  //                   ),
-                  //                   onTap: () {
-                  //                     Navigator.push(
-                  //                         context,
-                  //                         MaterialPageRoute(
-                  //                             builder: (context) =>
-                  //                                 detailstudent(student: Student)));
-                  //                   },
-                  //                 ),
-                  //               );
-                  //             }).toList());
-                  //           }
-                  //         },
-                  //       )
-                  //     :
-                  ListView.builder(
-                      itemCount: _resultList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
-                          child: ListTile(
-                            // trailing: const Card(
-                            //     child: InkWell(
-                            //       onTap:() {
-
-                            //       },
-                            //   child:
-                            //   Text("ลบผู้ใช้งาน"),
-                            // )),
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.black,
-                              radius: 55,
-                              child: CircleAvatar(
-                                backgroundImage:
-                                    NetworkImage(_resultList[index]['Photo']),
-                                radius: 23,
-                              ),
-                            ),
-                            title: Text(
-                              _resultList[index]["Name"],
-                              style: const TextStyle(fontSize: 22),
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => detailstudent(
-                                          student: _resultList[index])));
-                            },
+              width: 600,
+              child: ListView.builder(
+                  itemCount: _resultList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: Colors.black,
+                          radius: 55,
+                          child: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(_resultList[index]['Photo']),
+                            radius: 23,
                           ),
-                        );
-                      }),
-            ),
-            Container(
-                child: Length > 7
-                    ? ListTile(
-                        title: const Text(
-                          "See more..",
-                          style: TextStyle(fontSize: 20),
-                          textAlign: TextAlign.center,
+                        ),
+                        title: Text(
+                          _resultList[index]["Name"],
+                          style: const TextStyle(fontSize: 22),
                         ),
                         onTap: () {
-                          setState(() {
-                            stagelimit = 1;
-                            limit = limit + 5;
-                            addheight(_resultList.length);
-                            Getdata();
-                          });
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => detailstudent(
+                                      student: _resultList[index])));
                         },
-                      )
-                    : Container()),
+                      ),
+                    );
+                  }),
+            ),
+            // Container(
+            //     child: Length > 7
+            //         ? ListTile(
+            //             title: const Text(
+            //               "See more..",
+            //               style: TextStyle(fontSize: 20),
+            //               textAlign: TextAlign.center,
+            //             ),
+            //             onTap: () {
+            //               setState(() {
+            //                 stagelimit = 1;
+            //                 limit = limit + 5;
+            //                 // addheight(_resultList.length);
+            //                 Getdata();
+            //               });
+            //             },
+            //           )
+            //         : Container()),
           ],
         ),
       );

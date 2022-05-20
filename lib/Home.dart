@@ -36,22 +36,11 @@ class _HomepageState extends State<Homepage> {
     super.initState();
     print(box.read('email'));
 
-    // if (box.read('email') == null) {
-    //   Navigator.of(context).pushReplacement(
-    //       MaterialPageRoute(builder: (context) => const Login()));
-    // }
+   
     getheightforlength();
     _searchController.addListener((_onSearchChanged));
   }
 
-  // Future<void> checkloginValue() async {
-
-  //   if (box.read('email') != null) {
-  //     print("NEXT");
-  //   } else {
-
-  //   }
-  // }
 //เม็ดตอธทำงานก่อน widget build
   @override
   void dispose() {
@@ -122,7 +111,7 @@ class _HomepageState extends State<Homepage> {
 
   Future<int> getArrayLength() async {
     QuerySnapshot snaps =
-        await FirebaseFirestore.instance.collection("Student").get();
+        await FirebaseFirestore.instance.collection("Event").get();
     return snaps.docs.length;
   }
 
@@ -170,7 +159,7 @@ class _HomepageState extends State<Homepage> {
         const SizedBox(
           height: 15,
         ),
-        // const SearchBar(),
+        
         Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),

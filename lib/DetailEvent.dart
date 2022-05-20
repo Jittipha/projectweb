@@ -280,7 +280,7 @@ class _datailEventState extends State<datailEvent> {
 
   // ignore: non_constant_identifier_names
   void DeleteComment() async {
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection("Comment")
         .where("eId", isEqualTo: widget.Event.id)
         .get()
@@ -295,7 +295,7 @@ class _datailEventState extends State<datailEvent> {
   }
 
   void DeleteEvent() async {
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection("Event")
         .doc(widget.Event.id)
         .delete();
