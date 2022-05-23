@@ -217,6 +217,7 @@ class _datailEventState extends State<datailEvent> {
                 .doc(data.id)
                 .delete();
           });
+          DeleteNotification();
           DeleteEventInstudentPost();
           DeleteComment();
           DeleteEvent();
