@@ -23,7 +23,7 @@ class _HomepageState extends State<Homepage> {
   // ignore: prefer_final_fields
   TextEditingController _searchController = TextEditingController();
   int length = 0;
-  double height = 78;
+  double height = 70 * 7;
   GetStorage box = GetStorage();
   //ลิสทั้งหมดที่มัี
   List _allresult = [];
@@ -36,8 +36,7 @@ class _HomepageState extends State<Homepage> {
     super.initState();
     print(box.read('email'));
 
-   
-    getheightforlength();
+    // getheightforlength();
     _searchController.addListener((_onSearchChanged));
   }
 
@@ -99,15 +98,15 @@ class _HomepageState extends State<Homepage> {
     });
   }
 
-  Future<void> getheightforlength() async {
-    length = await getArrayLength();
-    if (length > 7) {
-      height = height * 7;
-    } else {
-      height = length * height;
-    }
-    setState(() {});
-  }
+  // Future<void> getheightforlength() async {
+  //   length = await getArrayLength();
+  //   if (length > 7) {
+  //     height = height * 7;
+  //   } else {
+  //     height = length * height;
+  //   }
+  //   setState(() {});
+  // }
 
   Future<int> getArrayLength() async {
     QuerySnapshot snaps =
@@ -148,10 +147,12 @@ class _HomepageState extends State<Homepage> {
             autofocus: false,
             controller: _searchController,
             decoration: InputDecoration(
+                iconColor: Colors.black,
                 prefixIcon: Icon(Icons.search),
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0))),
                 labelText: 'Search.....',
                 hintText: "Enter your Eventname"),
           ),
@@ -159,44 +160,98 @@ class _HomepageState extends State<Homepage> {
         const SizedBox(
           height: 15,
         ),
-        
-        Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.greenAccent[400],
-            ),
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-            height: height,
-            width: 650,
+        // Container(
+        //   height: 50,
+        //   width: 900,
+        //   color: Colors.white,
+        // ),
+
+        Expanded(
+            // decoration: BoxDecoration(
+            //   borderRadius: BorderRadius.only(
+            //     bottomLeft: const Radius.circular(10.0),
+            //     bottomRight: const Radius.circular(10.0),
+            //   ),
+            //   color: Colors.greenAccent,
+            // ),
+            // padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+            // height: height,
+            // width: 900,
             child: ListView.builder(
                 itemCount: _resultList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: Colors.black,
-                        radius: 55,
-                        child: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(_resultList[index]["Image"]),
-                          radius: 23,
+                  return Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: Colors.black,
+                          radius: 55,
+                          child: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(_resultList[index]["Image"]),
+                            radius: 23,
+                          ),
                         ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 10),
+                        title: Text(
+                          _resultList[index]['Name'],
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 23),
+                        ),
+                        subtitle: Text(
+                          _resultList[index]['Description'],
+                          maxLines: 1,
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        trailing: GestureDetector(
+                          onTap: () => {},
+                          child: Icon(
+                            Icons.delete,
+                            size: 35,
+                          ),
+                        ),
+                        onTap: () {},
                       ),
-                      title: Text(
-                        _resultList[index]["Name"],
-                        style: const TextStyle(fontSize: 22),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    datailEvent(Event: _resultList[index])));
-                      },
                     ),
                   );
-                }))
+                  // return Container(
+                  //   decoration: BoxDecoration(
+                  //     border: Border(
+                  //       bottom: BorderSide(color: Color.fromARGB(255, 153, 159, 161), width: 0.5),
+                  //     ),
+                  //   ),
+                  //   padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  //   child: ListTile(
+                  //     leading: CircleAvatar(
+                  //       backgroundColor: Colors.black,
+                  //       radius: 55,
+                  //       child: CircleAvatar(
+                  //         backgroundImage:
+                  //             NetworkImage(_resultList[index]["Image"]),
+                  //         radius: 23,
+                  //       ),
+                  //     ),
+                  //     title: Text(
+                  //       _resultList[index]["Name"],
+                  //       style: const TextStyle(fontSize: 22),
+                  //     ),
+                  //     onTap: () {
+                  //       Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //               builder: (context) =>
+                  //                   datailEvent(Event: _resultList[index])));
+                  //     },
+                  //   ),
+                  // );
+                })),
       ]);
 
   Widget buildMobile() => Center(

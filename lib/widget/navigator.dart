@@ -52,7 +52,6 @@ class _NavigatorbarState extends State<Navigatorbar> {
             //   width: 40,
             // ),
             Container(
-              
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               width: MediaQuery.of(context).size.width * 0.2,
               child: TextButton(
@@ -98,6 +97,7 @@ class _NavigatorbarState extends State<Navigatorbar> {
             Container(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               width: MediaQuery.of(context).size.width * 0.10,
+              height: 50,
               child: ElevatedButton(
                   onPressed: () {
                     GetStorage box = GetStorage();
@@ -108,14 +108,14 @@ class _NavigatorbarState extends State<Navigatorbar> {
                   child: const Text(
                     "Logout",
                     style: TextStyle(
-                        color: Color.fromARGB(255, 14, 10, 0), fontSize: 15),
+                        color: Color.fromARGB(255, 14, 10, 0), fontSize: 18),
                   ),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
                         const Color.fromARGB(255, 224, 229, 227)),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6.0),
+                            borderRadius: BorderRadius.circular(100.0),
                             side: const BorderSide(color: Colors.black))),
                   )),
             ),
