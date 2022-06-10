@@ -75,6 +75,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+
+
   
  
   # The following line ensures that the Material Icons font is
@@ -97,7 +99,11 @@ fonts:
   # To add assets to your application, add an assets section, like this:
 assets:
     - icons/icontrue.png
+    - images/Group152.png
+    - assets/images/
+    # - assets/images/
   #   - images/a_dot_ham.jpeg
+
 
   # An image asset can refer to one or more resolution-specพพพพific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

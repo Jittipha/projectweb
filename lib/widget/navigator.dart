@@ -52,7 +52,6 @@ class _NavigatorbarState extends State<Navigatorbar> {
             //   width: 40,
             // ),
             Container(
-              
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               width: MediaQuery.of(context).size.width * 0.2,
               child: TextButton(
@@ -98,15 +97,20 @@ class _NavigatorbarState extends State<Navigatorbar> {
             Container(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               width: MediaQuery.of(context).size.width * 0.10,
-              child: ElevatedButton(
+              child: ElevatedButton.icon(
+                  icon: const Icon(
+                    Icons.logout,
+                    color: Colors.black,
+                    size: 24.0,
+                  ),
                   onPressed: () {
                     GetStorage box = GetStorage();
                     box.remove('email');
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => const Login()));
                   },
-                  child: const Text(
-                    "Logout",
+                  label: const Text(
+                    'Logout',
                     style: TextStyle(
                         color: Color.fromARGB(255, 14, 10, 0), fontSize: 15),
                   ),

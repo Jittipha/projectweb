@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:projectweb/Background/Bg-login.dart';
 import 'package:projectweb/liststudents.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -18,13 +19,15 @@ class _detailstudentState extends State<detailstudent> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.greenAccent,
-        body: Container(
-            padding: const EdgeInsets.all(60),
-            child: ScreenTypeLayout(
-              desktop: Builddesktop(context),
-              tablet: Buildtablet(),
-              mobile: Buildmobile(),
-            )));
+        body: Background(
+          child: Container(
+              padding: const EdgeInsets.all(60),
+              child: ScreenTypeLayout(
+                desktop: Builddesktop(context),
+                tablet: Buildtablet(),
+                mobile: Buildmobile(),
+              )),
+        ));
   }
 
   // ignore: non_constant_identifier_names

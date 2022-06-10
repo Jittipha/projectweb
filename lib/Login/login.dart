@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:projectweb/Background/Bg-login.dart';
 import 'package:projectweb/Home.dart';
 import 'package:projectweb/Model/Admin.dart';
 
@@ -20,10 +21,14 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.greenAccent,
-      body: Center(
+      // backgroundColor: Colors.greenAccent,
+      body: Background(
         child: Container(
+          
+          
           decoration: BoxDecoration(
+            //  gradient:
+            // LinearGradient(colors: [const Color(0xFFc2e59c), Color(0xFF64b3f4)]),
             color: const Color.fromARGB(255, 219, 236, 225),
             border: Border.all(color: Colors.black),
             borderRadius: BorderRadius.circular(20.0),
@@ -56,7 +61,12 @@ class _LoginState extends State<Login> {
                 SizedBox(
                   width: 400,
                   height: 30,
-                  child: ElevatedButton(
+                  child: ElevatedButton.icon(
+                    icon: const Icon(
+                    Icons.login,
+                    color: Colors.white,
+                    size: 24.0,
+                  ),
                       onPressed: () async {
                         if (formkey.currentState!.validate()) {
                           formkey.currentState!.save();
@@ -81,12 +91,13 @@ class _LoginState extends State<Login> {
                           }
                         }
                       },
-                      child: const Text(
-                        "Login",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 247, 241, 241),
+                      label: const Text(
+                    'Login',
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 247, 241, 241),
                             fontSize: 18),
-                      ),
+                  ),
+                    
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
                             const Color.fromARGB(255, 70, 107, 85)),
@@ -164,7 +175,7 @@ class _LoginState extends State<Login> {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(40))),
       validator: (value) {
         if (!validateRpass(value!)) {
-          return 'กรอกรหัสผ่านอย่างน้อย 7 ตัวเลข';
+          return 'กรอกรหัสผ่านอย่างน้อย 6 ตัวเลข';
         }
         return null;
       },
