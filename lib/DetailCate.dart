@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:projectweb/Background/Bg-DetailStudent.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class detailcate extends StatefulWidget {
@@ -22,13 +23,15 @@ class _detailcateState extends State<detailcate> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.greenAccent,
-        body: Container(
-            padding: const EdgeInsets.all(60),
-            child: ScreenTypeLayout(
-              desktop: Builddesktop(context),
-              tablet: Buildtablet(),
-              mobile: Buildmobile(),
-            )));
+        body: Background(
+          child: Container(
+              padding: const EdgeInsets.all(60),
+              child: ScreenTypeLayout(
+                desktop: Builddesktop(context),
+                tablet: Buildtablet(),
+                mobile: Buildmobile(),
+              )),
+        ));
   }
 
   // ignore: non_constant_identifier_names
@@ -208,14 +211,18 @@ class _detailcateState extends State<detailcate> {
       ]);
 
   // ignore: non_constant_identifier_names
-  Widget Buildmobile() => Column(
-        children: [Text("listevent of desktop mobile")],
-      );
+  Widget Buildmobile() => const Center(
+          child: Text(
+        "โปรดขยายหน้าจอ !!",
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+      ));
 
   // ignore: non_constant_identifier_names
-  Widget Buildtablet() => Column(
-        children: [Text("listevent of desktop tablet")],
-      );
+  Widget Buildtablet() => const Center(
+          child: Text(
+        "โปรดขยายหน้าจอ !!",
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+      ));
 
   showAlert(context) {
     // set up the button
@@ -264,8 +271,8 @@ class _detailcateState extends State<detailcate> {
   void addtoCategory() async {
     await FirebaseFirestore.instance.collection("Category").doc().set({
       'Name': widget.Precate["Name"],
-      'Description': widget.Precate["Image"],
-      'Image': widget.Precate["Description"]
+      'Description': widget.Precate["Description"],
+      'Image': widget.Precate["Image"]
     });
   }
 

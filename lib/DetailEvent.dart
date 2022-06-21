@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:projectweb/Home.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class datailEvent extends StatefulWidget {
@@ -16,8 +17,17 @@ class _datailEventState extends State<datailEvent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
         backgroundColor: Colors.greenAccent,
         body: Container(
+           height: double.infinity,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(
+                      "https://images.unsplash.com/photo-1538437616090-64c780652422?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"),
+                  fit: BoxFit.cover),
+            ),
             padding: const EdgeInsets.all(60),
             child: ScreenTypeLayout(
               desktop: Builddesktop(context),
@@ -42,7 +52,7 @@ class _datailEventState extends State<datailEvent> {
                     )))),
         Container(
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 219, 236, 225),
+              color: Color.fromARGB(255, 230, 233, 232),
               border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(20.0),
             ),
@@ -184,14 +194,18 @@ class _datailEventState extends State<datailEvent> {
       ]);
 
   // ignore: non_constant_identifier_names
-  Widget Buildmobile() => Column(
-        children: [const Text("listevent of desktop mobile")],
-      );
+  Widget Buildmobile() => const Center(
+          child: Text(
+        "โปรดขยายหน้าจอ !!",
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+      ));
 
   // ignore: non_constant_identifier_names
-  Widget Buildtablet() => Column(
-        children: [const Text("listevent of desktop tablet")],
-      );
+  Widget Buildtablet() => const Center(
+          child: Text(
+        "โปรดขยายหน้าจอ !!",
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+      ));
 
   showAlertDialog(context) {
     // set up the button
@@ -212,11 +226,16 @@ class _datailEventState extends State<datailEvent> {
                 .doc(data.id)
                 .delete();
           });
+          DeleteNotification();
           DeleteEventInstudentPost();
           DeleteComment();
           DeleteEvent();
           Navigator.pop(context);
           Navigator.pop(context);
+          Navigator.push(
+            context,
+            new MaterialPageRoute(builder: (context) => new Homepage()),
+          );
         });
 
     // ignore: deprecated_member_use
@@ -271,7 +290,7 @@ class _datailEventState extends State<datailEvent> {
 
   // ignore: non_constant_identifier_names
   void DeleteComment() async {
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection("Comment")
         .where("eId", isEqualTo: widget.Event.id)
         .get()
@@ -286,7 +305,7 @@ class _datailEventState extends State<datailEvent> {
   }
 
   void DeleteEvent() async {
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection("Event")
         .doc(widget.Event.id)
         .delete();

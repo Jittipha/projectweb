@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:projectweb/Background/Bg-login.dart';
 import 'package:projectweb/liststudents.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -18,20 +19,23 @@ class _detailstudentState extends State<detailstudent> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.greenAccent,
-        body: Container(
-            padding: const EdgeInsets.all(60),
-            child: ScreenTypeLayout(
-              desktop: Builddesktop(context),
-              tablet: Buildtablet(),
-              mobile: Buildmobile(),
-            )));
+        body: Background(
+          child: Container(
+              padding: const EdgeInsets.all(60),
+              child: ScreenTypeLayout(
+                desktop: Builddesktop(context),
+                tablet: Buildtablet(),
+                mobile: Buildmobile(),
+              )),
+        ));
   }
 
   // ignore: non_constant_identifier_names
   Widget Builddesktop(BuildContext context) => Row(children: [
         Container(
             padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            width: MediaQuery.of(context).size.width * 0.45,
+            width: MediaQuery.of(context).size.width * 0.40,
+            height: 400,
             child: Align(
                 alignment: Alignment.topCenter,
                 child: CircleAvatar(
@@ -41,8 +45,15 @@ class _detailstudentState extends State<detailstudent> {
                       radius: 195,
                       backgroundImage: NetworkImage(widget.student["Photo"]),
                     )))),
-        SizedBox(
+        Container(
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 230, 233, 232),
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            padding: const EdgeInsets.all(50.0),
             width: MediaQuery.of(context).size.width * 0.45,
+            height: 700,
             child: Column(
               children: [
                 const SizedBox(
@@ -76,77 +87,70 @@ class _detailstudentState extends State<detailstudent> {
                       textAlign: TextAlign.left,
                     )),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
-                SizedBox(
-                    height: 200,
-                    child: Expanded(
-                        child: StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection("Student")
-                                .doc(widget.student.id)
-                                .collection("Posts")
-                                .snapshots(),
-                            builder: (context,
-                                AsyncSnapshot<QuerySnapshot> snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                                // ignore: prefer_is_empty
-                              } else if (snapshot.data?.docs.length == 0) {
-                                return Container(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                                    child: const Text(
-                                      "NOT HAVE EVENT.",
-                                      style: TextStyle(
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.w300),
-                                    ));
-                              } else {
-                                return SizedBox(
-                                    child: ListView(
-                                        scrollDirection: Axis.horizontal,
-                                        children: snapshot.data!.docs
-                                            // ignore: non_constant_identifier_names
-                                            .map((Postofstudent) {
-                                          return Container(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                0, 35, 10, 0),
-                                            // color: Colors.white,
-
-                                            child: Column(
-                                              children: [
-                                                CircleAvatar(
-                                                  radius: 50,
-                                                  backgroundColor: Colors
-                                                      .lightBlueAccent[100],
-                                                  child: CircleAvatar(
-                                                    radius: 48,
-                                                    backgroundImage:
-                                                        NetworkImage(
-                                                            Postofstudent[
-                                                                "Image"]),
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 15,
-                                                ),
-                                                Text(
-                                                  Postofstudent["Name"],
-                                                  style: const TextStyle(
-                                                      fontSize: 18),
-                                                )
-                                              ],
-                                            ),
-                                          );
-                                        }).toList()));
-                              }
-                            }))),
                 Container(
-                    padding: const EdgeInsets.fromLTRB(60, 20, 0, 0),
+                  // alignment: Alignment.centerLeft,
+                  height: 200,
+                  // width: 200,
+
+                  color: Colors.white,
+                  child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection("Student")
+                          .doc(widget.student.id)
+                          .collection("Posts")
+                          .snapshots(),
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                          // ignore: prefer_is_empty
+                        } else if (snapshot.data?.docs.length == 0) {
+                          return Center(
+                              // padding: const EdgeInsets.fromLTRB(0, 50, 50, 0),
+                              child: const Text(
+                            "NOT HAVE EVENT.",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.w300),
+                          ));
+                        } else {
+                          return ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: snapshot.data!.docs
+                                // ignore: non_constant_identifier_names
+                                .map((Postofstudent) {
+                              return Column(
+                                children: <Widget>[
+                                  CircleAvatar(
+                                    radius: 50,
+                                    backgroundColor:
+                                        Colors.lightBlueAccent[100],
+                                    child: CircleAvatar(
+                                      radius: 48,
+                                      backgroundImage: NetworkImage(
+                                          Postofstudent["Image"]),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  Text(
+                                    Postofstudent["Name"],
+                                    style: const TextStyle(fontSize: 18),
+                                  )
+                                ],
+                              );
+                            }).toList(),
+                          );
+                        }
+                      }),
+                ),
+                Container(
+                    padding: const EdgeInsets.fromLTRB(60, 10, 0, 0),
                     child: Row(
                       children: [
                         GestureDetector(
@@ -203,14 +207,18 @@ class _detailstudentState extends State<detailstudent> {
       ]);
 
   // ignore: non_constant_identifier_names
-  Widget Buildmobile() => Column(
-        children: [Text("listevent of desktop mobile")],
-      );
+  Widget Buildmobile() => const Center(
+          child: Text(
+        "โปรดขยายหน้าจอ !!",
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+      ));
 
   // ignore: non_constant_identifier_names
-  Widget Buildtablet() => Column(
-        children: [Text("listevent of desktop tablet")],
-      );
+  Widget Buildtablet() => const Center(
+          child: Text(
+        "โปรดขยายหน้าจอ !!",
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+      ));
 
   showAlertDialog(context) {
     // set up the button
@@ -222,8 +230,8 @@ class _detailstudentState extends State<detailstudent> {
               .doc(widget.student.id)
               .collection("Joined")
               .get();
-          snap.docs.forEach((data) {
-            FirebaseFirestore.instance
+          snap.docs.forEach((data) async {
+            await FirebaseFirestore.instance
                 .collection("Event")
                 .doc(data.id)
                 .collection("Joined")
@@ -231,12 +239,20 @@ class _detailstudentState extends State<detailstudent> {
                 .delete();
           });
           DeleteNoti();
-          DeleteStudent();
+          DeleteContainStudent();
           DeleteComment();
+          DeleteStudent();
           Navigator.pop(context);
-          Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => const liststudent()));
+          Navigator.pop(context);
+          await Navigator.push(
+            context,
+            new MaterialPageRoute(builder: (context) => new liststudent()),
+          );
+
+          // Navigator.push(
+          //   context,
+          //   new MaterialPageRoute(builder: (context) => new liststudent()),
+          // );
           // Navigator.pop(context);
         });
 
@@ -279,7 +295,7 @@ class _detailstudentState extends State<detailstudent> {
   }
 
   // ignore: non_constant_identifier_names
-  void DeleteStudent() async {
+  void DeleteContainStudent() async {
     QuerySnapshot snapcolCate = await FirebaseFirestore.instance
         .collection("Student")
         .doc(widget.student.id)
@@ -298,8 +314,8 @@ class _detailstudentState extends State<detailstudent> {
         .doc(widget.student.id)
         .collection("Joined")
         .get();
-    snapcolJoin.docs.forEach((element) {
-      FirebaseFirestore.instance
+    snapcolJoin.docs.forEach((element) async {
+      await FirebaseFirestore.instance
           .collection("Student")
           .doc(widget.student.id)
           .collection("Joined")
@@ -311,33 +327,36 @@ class _detailstudentState extends State<detailstudent> {
         .doc(widget.student.id)
         .collection("Posts")
         .get();
-    snapcolPosts.docs.forEach((element) {
-      FirebaseFirestore.instance
+    snapcolPosts.docs.forEach((element) async {
+      await FirebaseFirestore.instance
           .collection("Student")
           .doc(widget.student.id)
           .collection("Posts")
           .doc(element.id)
           .delete();
     });
-    await FirebaseFirestore.instance
-        .collection("Student")
-        .doc(widget.student.id)
-        .delete();
   }
 
   // ignore: non_constant_identifier_names
   void DeleteComment() async {
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection("Comment")
         .where("sId", isEqualTo: widget.student.id)
         .get()
         .then((value) => {
-              value.docs.forEach((element) {
-                FirebaseFirestore.instance
+              value.docs.forEach((element) async {
+                await FirebaseFirestore.instance
                     .collection("Comment")
                     .doc(element.id)
                     .delete();
               })
             });
+  }
+
+  void DeleteStudent() async {
+    await FirebaseFirestore.instance
+        .collection("Student")
+        .doc(widget.student.id)
+        .delete();
   }
 }
