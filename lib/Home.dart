@@ -2,9 +2,20 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// ignore: duplicate_import
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+// ignore_for_file: file_names, non_constant_identifier_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
+import 'package:projectweb/DetailEvent.dart';
+import 'package:projectweb/Login/login.dart';
+import 'package:projectweb/liststudents.dart';
 import 'package:projectweb/widget/navigator.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:get_storage/get_storage.dart';
+
+import 'Model/Event.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -14,80 +25,95 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  final TextEditingController _searchText = TextEditingController(text: "");
+  // ignore: prefer_final_fields
+  TextEditingController _searchController = TextEditingController();
   int length = 0;
   double height = 78;
-
-  // TextEditingController _searchController = TextEditingController();
-
-  // Future? resultsLoaded;
-  // List _allResults = [];
-  // List _resultsList = [];
-  // Events events = Events();
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _searchController.addListener(_onSearchChanged);
-  // }
-
-  // @override
-  // void dispose() {
-  //   _searchController.removeListener(_onSearchChanged);
-  //   _searchController.dispose();
-  //   super.dispose();
-  // }
-
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   resultsLoaded = getUsersPastTripsStreamSnapshots();
-  // }
-
-  // _onSearchChanged() {
-  //   searchResultsList();
-  // }
-
-  // searchResultsList() {
-  //   var showResults = [];
-  //   var data =  FirebaseFirestore.instance.collection('Event').doc().get().then((value) => {
-  //         setState(() {
-  //           events.Image = value.data()?["Image"];
-
-  //           events.Date = value.data()?["Name"];
-  //         }),
-  //       });
-
-  //   if (_searchController.text != "") {
-  //     for (var tripSnapshot in _allResults) {
-  //       var title = data.title.toLowerCase();
-
-  //       if (title.contains(_searchController.text.toLowerCase())) {
-  //         showResults.add(tripSnapshot);
-  //       }
-  //     }
-  //   } else {
-  //     showResults = List.from(_allResults);
-  //   }
-  //   setState(() {
-  //     _resultsList = showResults;
-  //   });
-  // }
-
-  // getUsersPastTripsStreamSnapshots() async {
-  //   var data = await FirebaseFirestore.instance.collection('userData').get();
-
-  //   setState(() {
-  //     _allResults = data.docs;
-  //   });
-  //   searchResultsList();
-  //   return "complete";
-  // }
+  GetStorage box = GetStorage();
+  //ลิสทั้งหมดที่มัี
+  List _allresult = [];
+  //ลิสที่ค้นหาได้
+  List _resultList = [];
+  late Future resultsLoaded;
+  //เม็ดตอธทำงานก่อน widget build
 
   @override
   void initState() {
     super.initState();
+    print(box.read('email'));
+
+    // if (box.read('email') == null) {
+    //   Navigator.of(context).pushReplacement(
+    //       MaterialPageRoute(builder: (context) => const Login()));
+    // }
     getheightforlength();
+    _searchController.addListener((_onSearchChanged));
+  }
+
+  // Future<void> checkloginValue() async {
+
+  //   if (box.read('email') != null) {
+  //     print("NEXT");
+  //   } else {
+
+  //   }
+  // }
+//เม็ดตอธทำงานก่อน widget build
+  @override
+  void dispose() {
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+    super.dispose();
+  }
+
+//เม็ดตอธทำงานก่อน widget build
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    //resultloaded เท่ากันค่าที่เม็ดตอธ getdata return มา
+    //ซึ่งเท่ากับ complete
+    resultsLoaded = Getdata();
+  }
+
+//ดึงข้อมูลทั้งหมดมาเก็บใน allresult
+  Getdata() async {
+    var data = await FirebaseFirestore.instance
+        .collection('Event')
+        .orderBy('Name', descending: true)
+        .get();
+    setState(() {
+      _allresult = data.docs;
+    });
+    searchResultList();
+
+    return "complete";
+  }
+
+  _onSearchChanged() {
+    searchResultList();
+  }
+
+  searchResultList() {
+    var showResult = [];
+    //ในกล่อง Search มีค่า?
+    if (_searchController.text != "") {
+      for (var Snapshot in _allresult) {
+        var name = Event.fromSnapshot(Snapshot).name!.toLowerCase();
+        //เช็คตัวแปร Name ของ event ทั้งหมดว่ามีส่วนประกอยของข้อความที่ใส่ไปรึป่าว
+        //เช่น ในtext คือ p แล้วเอา p ไปเช็คกับชื่อ event ทั้งหมด
+        if (name.contains(_searchController.text.toLowerCase())) {
+          showResult.add(Snapshot);
+        }
+      }
+      //ในกล่อง Search ไม่ได้ใส่อะไร
+    } else {
+      //ให้ showresult เท่ากับ allresult คือ ถ้าไม่มีค่าในกล่อง search ให้โชว์event ทั้งหมด
+      showResult = List.from(_allresult);
+    }
+    setState(() {
+      //เอาค่าที่ได้มาใส่ใน resultlist
+      _resultList = showResult;
+    });
   }
 
   Future<void> getheightforlength() async {
@@ -108,7 +134,6 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
         backgroundColor: Colors.greenAccent,
         body: Container(
@@ -121,44 +146,48 @@ class _HomepageState extends State<Homepage> {
   }
 
   Widget buildDesktop() => Column(children: [
-        // const Text("Past Trips", style: TextStyle(fontSize: 20)),
-        // Padding(
-        //   padding: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 30.0),
-        //   child: TextField(
-        //     controller: _searchController,
-        //     decoration: const InputDecoration(prefixIcon: Icon(Icons.search)),
-        //   ),
-        // ),
-        // Expanded(
-        //     child: ListView.builder(
-        //   itemCount: _resultsList.length,
-        //   itemBuilder: (BuildContext context, int index) =>
-        //       buildTripCard(context, _resultsList[index]),
-        // )),
-
         const Navigatorbar(),
         const SizedBox(
-          height: 60,
+          height: 30,
+        ),
+        const Text(
+          "EVENTS",
+          style: TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        SizedBox(
+          width: 550,
+          child: TextField(
+            cursorHeight: 10,
+            autofocus: false,
+            controller: _searchController,
+            decoration: InputDecoration(
+                prefixIcon: Icon(Icons.search),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                border: OutlineInputBorder(),
+                labelText: 'Search.....',
+                hintText: "Enter your Eventname"),
+          ),
+        ),
+        const SizedBox(
+          height: 15,
         ),
         // const SearchBar(),
         Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.greenAccent[400],
-          ),
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-          height: height,
-          width: 650,
-          child: StreamBuilder(
-            stream: FirebaseFirestore.instance.collection('Event').snapshots(),
-            builder: (context, AsyncSnapshot<QuerySnapshot> snapshots) {
-              if (snapshots.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                return ListView(
-                    children: snapshots.data!.docs.map((event) {
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.greenAccent[400],
+            ),
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+            height: height,
+            width: 650,
+            child: ListView.builder(
+                itemCount: _resultList.length,
+                itemBuilder: (BuildContext context, int index) {
                   return Container(
                     padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
                     child: ListTile(
@@ -166,28 +195,25 @@ class _HomepageState extends State<Homepage> {
                         backgroundColor: Colors.black,
                         radius: 55,
                         child: CircleAvatar(
-                          backgroundImage: NetworkImage(event["Image"]),
+                          backgroundImage:
+                              NetworkImage(_resultList[index]["Image"]),
                           radius: 23,
                         ),
                       ),
                       title: Text(
-                        event["Name"],
+                        _resultList[index]["Name"],
                         style: const TextStyle(fontSize: 22),
                       ),
                       onTap: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) =>
-                        //             detailstudent(student: Student)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    datailEvent(Event: _resultList[index])));
                       },
                     ),
                   );
-                }).toList());
-              }
-            },
-          ),
-        )
+                }))
       ]);
 
   Widget buildMobile() => Column(

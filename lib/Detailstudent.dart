@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:projectweb/liststudents.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class detailstudent extends StatefulWidget {
@@ -30,7 +31,7 @@ class _detailstudentState extends State<detailstudent> {
   Widget Builddesktop(BuildContext context) => Row(children: [
         Container(
             padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            width: 900,
+            width: MediaQuery.of(context).size.width * 0.45,
             child: Align(
                 alignment: Alignment.topCenter,
                 child: CircleAvatar(
@@ -41,7 +42,7 @@ class _detailstudentState extends State<detailstudent> {
                       backgroundImage: NetworkImage(widget.student["Photo"]),
                     )))),
         SizedBox(
-            width: 900,
+            width: MediaQuery.of(context).size.width * 0.45,
             child: Column(
               children: [
                 const SizedBox(
@@ -233,7 +234,10 @@ class _detailstudentState extends State<detailstudent> {
           DeleteStudent();
           DeleteComment();
           Navigator.pop(context);
-          Navigator.pop(context);
+          Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => const liststudent()));
+          // Navigator.pop(context);
         });
 
     Widget cancleButton = FlatButton(

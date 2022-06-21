@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:projectweb/DetailCate.dart';
 import 'package:projectweb/widget/navigator.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -13,6 +14,42 @@ class ApprovedCate extends StatefulWidget {
 }
 
 class _ApprovedCateState extends State<ApprovedCate> {
+   int finaldata = 0;
+  int stagelimit = 0;
+  int limit = 7;
+  int Length = 0;
+  double height = 77 * 7;
+  @override
+  void initState() {
+    super.initState();
+    getheightforlength();
+    
+  }
+
+Future<void> addheight() async {
+    print(limit);
+    print(height);
+    if (Length - limit >= 0) {
+      height = height + 390;
+    } else if (Length - limit < 0) {
+      int a = 5 - (limit - Length);
+      print(a);
+      int sum = 77 * a;
+      height = height + sum;
+      finaldata = 2;
+    }
+    print(height);
+  }
+  Future<void> getheightforlength() async {
+    Length = await GetArrayLength();
+  }
+
+  Future<int> GetArrayLength() async {
+    QuerySnapshot snaps =
+        await FirebaseFirestore.instance.collection("PreCategories").get();
+    return snaps.docs.length;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,13 +84,13 @@ class _ApprovedCateState extends State<ApprovedCate> {
               color: Colors.greenAccent[400],
             ),
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-            height: 550,
-            width: 850,
+            height: height,
+            width: 700,
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("PreCategories")
                   .orderBy('Name', descending: true)
-                  .limit(10)
+                  .limit(limit)
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -80,29 +117,29 @@ class _ApprovedCateState extends State<ApprovedCate> {
                         //   //  )
                         //   ],
                         // ),
-                        trailing: Wrap(
-                          spacing: 12, // space between two icons
-                          children: <Widget>[
-                            GestureDetector(
-                                child: const CircleAvatar(
-                              radius: 30,
-                              backgroundColor:  Colors.greenAccent,
-                              child: Icon(
-                                Icons.check_circle_outline_outlined,
-                                size: 60,
-                              ),
-                            )),
-                            GestureDetector(
-                                child: const CircleAvatar(
-                              radius: 28,
-                              backgroundColor: Colors.redAccent,
-                              child: Icon(
-                                Icons.close_rounded,
-                                size: 56,
-                              ),
-                            )), // icon-2
-                          ],
-                        ),
+                        // trailing: Wrap(
+                        //   spacing: 12, // space between two icons
+                        //   children: <Widget>[
+                        //     GestureDetector(
+                        //         child: const CircleAvatar(
+                        //       radius: 30,
+                        //       backgroundColor: Colors.greenAccent,
+                        //       child: Icon(
+                        //         Icons.check_circle_outline_outlined,
+                        //         size: 60,
+                        //       ),
+                        //     )),
+                        //     GestureDetector(
+                        //         child: const CircleAvatar(
+                        //       radius: 28,
+                        //       backgroundColor: Colors.redAccent,
+                        //       child: Icon(
+                        //         Icons.close_rounded,
+                        //         size: 56,
+                        //       ),
+                        //     )), // icon-2
+                        //   ],
+                        // ),
 
                         leading: CircleAvatar(
                           backgroundColor: Colors.black,
@@ -119,13 +156,14 @@ class _ApprovedCateState extends State<ApprovedCate> {
                         subtitle: Text(
                           PreCate["Description"],
                           style: const TextStyle(fontSize: 16),
+                          maxLines: 1,
                         ),
                         onTap: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) =>
-                          //             detailstudent(student: Student)));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      detailcate(Precate : PreCate)));
                         },
                       ),
                     );
@@ -134,16 +172,24 @@ class _ApprovedCateState extends State<ApprovedCate> {
               },
             ),
           ),
-          ListTile(
-            title: const Text(
-              "See more..",
-              style: TextStyle(fontSize: 20),
-              textAlign: TextAlign.center,
-            ),
-            onTap: () {
-              setState(() {});
-            },
-          ),
+         Container(
+                child:  Length > 7
+                    ? ListTile(
+                        title: const Text(
+                          "See more..",
+                          style: TextStyle(fontSize: 20),
+                          textAlign: TextAlign.center,
+                        ),
+                        onTap: () {
+                          setState(() {
+                            stagelimit = 1;
+                            limit = limit + 5;
+                            addheight();
+                            
+                          });
+                        },
+                      )
+                    : Container()),
         ],
       ));
 
