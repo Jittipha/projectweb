@@ -17,8 +17,17 @@ class _datailEventState extends State<datailEvent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
         backgroundColor: Colors.greenAccent,
         body: Container(
+           height: double.infinity,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(
+                      "https://images.unsplash.com/photo-1538437616090-64c780652422?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"),
+                  fit: BoxFit.cover),
+            ),
             padding: const EdgeInsets.all(60),
             child: ScreenTypeLayout(
               desktop: Builddesktop(context),
@@ -43,7 +52,7 @@ class _datailEventState extends State<datailEvent> {
                     )))),
         Container(
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 219, 236, 225),
+              color: Color.fromARGB(255, 230, 233, 232),
               border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(20.0),
             ),

@@ -13,7 +13,9 @@ import 'package:get_storage/get_storage.dart';
 import 'Model/Event.dart';
 
 class Homepage extends StatefulWidget {
-  const Homepage({Key? key}) : super(key: key);
+  Homepage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -23,7 +25,7 @@ class _HomepageState extends State<Homepage> {
   // ignore: prefer_final_fields
   TextEditingController _searchController = TextEditingController();
   int length = 0;
-  double height = 78;
+  double height = 70 * 7;
   GetStorage box = GetStorage();
   //ลิสทั้งหมดที่มัี
   List _allresult = [];
@@ -36,8 +38,7 @@ class _HomepageState extends State<Homepage> {
     super.initState();
     print(box.read('email'));
 
-   
-    getheightforlength();
+    // getheightforlength();
     _searchController.addListener((_onSearchChanged));
   }
 
@@ -99,15 +100,15 @@ class _HomepageState extends State<Homepage> {
     });
   }
 
-  Future<void> getheightforlength() async {
-    length = await getArrayLength();
-    if (length > 7) {
-      height = height * 7;
-    } else {
-      height = length * height;
-    }
-    setState(() {});
-  }
+  // Future<void> getheightforlength() async {
+  //   length = await getArrayLength();
+  //   if (length > 7) {
+  //     height = height * 7;
+  //   } else {
+  //     height = length * height;
+  //   }
+  //   setState(() {});
+  // }
 
   Future<int> getArrayLength() async {
     QuerySnapshot snaps =
@@ -120,6 +121,14 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
         backgroundColor: Colors.greenAccent,
         body: Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(
+                      "https://images.unsplash.com/photo-1651147538420-06f5e0d3f1d9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"),
+                  fit: BoxFit.cover),
+            ),
             padding: const EdgeInsets.all(60),
             child: ScreenTypeLayout(
               desktop: buildDesktop(),
@@ -148,10 +157,12 @@ class _HomepageState extends State<Homepage> {
             autofocus: false,
             controller: _searchController,
             decoration: InputDecoration(
+                iconColor: Colors.black,
                 prefixIcon: Icon(Icons.search),
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0))),
                 labelText: 'Search.....',
                 hintText: "Enter your Eventname"),
           ),
@@ -159,20 +170,36 @@ class _HomepageState extends State<Homepage> {
         const SizedBox(
           height: 15,
         ),
-        
-        Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.greenAccent[400],
-            ),
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-            height: height,
-            width: 650,
-            child: ListView.builder(
-                itemCount: _resultList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+        // Container(
+        //   height: 50,
+        //   width: 900,
+        //   color: Colors.white,
+        // ),
+
+        Expanded(
+            // decoration: BoxDecoration(
+            //   borderRadius: BorderRadius.only(
+            //     bottomLeft: const Radius.circular(10.0),
+            //     bottomRight: const Radius.circular(10.0),
+            //   ),
+            //   color: Colors.greenAccent,
+            // ),
+            // padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+            // height: height,
+            // width: 900,
+          child: Container(
+          width: 600,
+          child: ListView.builder(
+              itemCount: _resultList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: Colors.black,
@@ -183,9 +210,25 @@ class _HomepageState extends State<Homepage> {
                           radius: 23,
                         ),
                       ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 10),
                       title: Text(
-                        _resultList[index]["Name"],
-                        style: const TextStyle(fontSize: 22),
+                        _resultList[index]['Name'],
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 23),
+                      ),
+                      subtitle: Text(
+                        _resultList[index]['Description'],
+                        maxLines: 1,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      trailing: GestureDetector(
+                        onTap: () => {showAlertDialog(context, index)},
+                        child: Icon(
+                          Icons.delete,
+                          size: 35,
+                          color: Colors.red,
+                        ),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -195,8 +238,40 @@ class _HomepageState extends State<Homepage> {
                                     datailEvent(Event: _resultList[index])));
                       },
                     ),
-                  );
-                }))
+                  ),
+                );
+                // return Container(
+                //   decoration: BoxDecoration(
+                //     border: Border(
+                //       bottom: BorderSide(color: Color.fromARGB(255, 153, 159, 161), width: 0.5),
+                //     ),
+                //   ),
+                //   padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                //   child: ListTile(
+                //     leading: CircleAvatar(
+                //       backgroundColor: Colors.black,
+                //       radius: 55,
+                //       child: CircleAvatar(
+                //         backgroundImage:
+                //             NetworkImage(_resultList[index]["Image"]),
+                //         radius: 23,
+                //       ),
+                //     ),
+                //     title: Text(
+                //       _resultList[index]["Name"],
+                //       style: const TextStyle(fontSize: 22),
+                //     ),
+                //     onTap: () {
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: (context) =>
+                //                   datailEvent(Event: _resultList[index])));
+                //     },
+                //   ),
+                // );
+              }),
+        )),
       ]);
 
   Widget buildMobile() => Center(
@@ -209,4 +284,103 @@ class _HomepageState extends State<Homepage> {
         "โปรดขยายหน้าจอ !!",
         style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
       ));
+
+  showAlertDialog(context, index) {
+    // set up the button
+    // ignore: deprecated_member_use
+    QueryDocumentSnapshot Event = _resultList[index];
+    Widget okButton = FlatButton(
+        child: const Text("OK"),
+        onPressed: () async {
+          QuerySnapshot snap = await FirebaseFirestore.instance
+              .collection("Event")
+              .doc(Event.id)
+              .collection("Joined")
+              .get();
+          snap.docs.forEach((data) {
+            FirebaseFirestore.instance
+                .collection("Event")
+                .doc(Event.id)
+                .collection("Joined")
+                .doc(data.id)
+                .delete();
+          });
+          DeleteNotification(Event);
+          DeleteEventInstudentPost(Event);
+          DeleteComment(Event);
+          DeleteEvent(Event);
+          _resultList.remove(_resultList[index]);
+          Navigator.pop(context);
+          setState(() {});
+        });
+
+    // ignore: deprecated_member_use
+    Widget cancleButton = FlatButton(
+      child: const Text("CANCLE"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Delete Event!"),
+      content: const Text("Are you sure?"),
+      actions: [cancleButton, okButton],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  // ignore: non_constant_identifier_names
+  void DeleteNotification(Event) async {
+    await FirebaseFirestore.instance
+        .collection("Notification")
+        .doc(Event.id)
+        .delete();
+  }
+
+  // ignore: non_constant_identifier_names
+  void DeleteEventInstudentPost(Event) async {
+    QuerySnapshot DeleteStudent = await FirebaseFirestore.instance
+        .collection("Student")
+        .doc(Event["Host"][0]["Student_id"])
+        .collection("Posts")
+        .where("Event_id", isEqualTo: Event.id)
+        .get();
+    DeleteStudent.docs.forEach((element) async {
+      await FirebaseFirestore.instance
+        ..collection("Student")
+            .doc(Event["Host"][0]["Student_id"])
+            .collection("Posts")
+            .doc(element.id)
+            .delete();
+    });
+  }
+
+  // ignore: non_constant_identifier_names
+  void DeleteComment(Event) async {
+    await FirebaseFirestore.instance
+        .collection("Comment")
+        .where("eId", isEqualTo: Event.id)
+        .get()
+        .then((value) => {
+              value.docs.forEach((element) {
+                FirebaseFirestore.instance
+                    .collection("Comment")
+                    .doc(element.id)
+                    .delete();
+              })
+            });
+  }
+
+  void DeleteEvent(Event) async {
+    await FirebaseFirestore.instance.collection("Event").doc(Event.id).delete();
+  }
 }

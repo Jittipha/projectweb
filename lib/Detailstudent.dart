@@ -34,7 +34,8 @@ class _detailstudentState extends State<detailstudent> {
   Widget Builddesktop(BuildContext context) => Row(children: [
         Container(
             padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            width: MediaQuery.of(context).size.width * 0.45,
+            width: MediaQuery.of(context).size.width * 0.40,
+            height: 400,
             child: Align(
                 alignment: Alignment.topCenter,
                 child: CircleAvatar(
@@ -45,7 +46,14 @@ class _detailstudentState extends State<detailstudent> {
                       backgroundImage: NetworkImage(widget.student["Photo"]),
                     )))),
         Container(
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 230, 233, 232),
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            padding: const EdgeInsets.all(50.0),
             width: MediaQuery.of(context).size.width * 0.45,
+            height: 700,
             child: Column(
               children: [
                 const SizedBox(
@@ -83,9 +91,10 @@ class _detailstudentState extends State<detailstudent> {
                 ),
                 Container(
                   // alignment: Alignment.centerLeft,
-                  height: 220,
-                  width: 800,
+                  height: 200,
+                  // width: 200,
 
+                  color: Colors.white,
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
                           .collection("Student")
@@ -96,7 +105,7 @@ class _detailstudentState extends State<detailstudent> {
                           (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return const Center(
+                          return Center(
                             child: CircularProgressIndicator(),
                           );
                           // ignore: prefer_is_empty
@@ -114,31 +123,26 @@ class _detailstudentState extends State<detailstudent> {
                             children: snapshot.data!.docs
                                 // ignore: non_constant_identifier_names
                                 .map((Postofstudent) {
-                              return Container(
-                                padding: const EdgeInsets.fromLTRB(0, 5, 10, 0),
-                                // color: Colors.white,
-
-                                child: Column(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 50,
-                                      backgroundColor:
-                                          Colors.lightBlueAccent[100],
-                                      child: CircleAvatar(
-                                        radius: 48,
-                                        backgroundImage: NetworkImage(
-                                            Postofstudent["Image"]),
-                                      ),
+                              return Column(
+                                children: <Widget>[
+                                  CircleAvatar(
+                                    radius: 50,
+                                    backgroundColor:
+                                        Colors.lightBlueAccent[100],
+                                    child: CircleAvatar(
+                                      radius: 48,
+                                      backgroundImage: NetworkImage(
+                                          Postofstudent["Image"]),
                                     ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    Text(
-                                      Postofstudent["Name"],
-                                      style: const TextStyle(fontSize: 18),
-                                    )
-                                  ],
-                                ),
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  Text(
+                                    Postofstudent["Name"],
+                                    style: const TextStyle(fontSize: 18),
+                                  )
+                                ],
                               );
                             }).toList(),
                           );
