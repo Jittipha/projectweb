@@ -22,16 +22,23 @@ class _detailcateState extends State<detailcate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
         backgroundColor: Colors.greenAccent,
-        body: Background(
-          child: Container(
-              padding: const EdgeInsets.all(60),
-              child: ScreenTypeLayout(
-                desktop: Builddesktop(context),
-                tablet: Buildtablet(),
-                mobile: Buildmobile(),
-              )),
-        ));
+        body: Container(
+           height: double.infinity,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(
+                      "https://media.discordapp.net/attachments/919218109334814750/983557478023303189/Group_152.png?width=861&height=612"),
+                  fit: BoxFit.cover),
+            ),
+            padding: const EdgeInsets.all(60),
+            child: ScreenTypeLayout(
+              desktop: Builddesktop(context),
+              tablet: Buildtablet(),
+              mobile: Buildmobile(),
+            )));
   }
 
   // ignore: non_constant_identifier_names

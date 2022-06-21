@@ -18,17 +18,17 @@ class _NavigatorbarState extends State<Navigatorbar> {
   Widget build(BuildContext context) {
     return Container(
       child: Row(
-         mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Container(
             // color: Color.fromARGB(255, 183, 181, 181),
-            child: TextButton(
-              
+            child:  RaisedButton(
+                color: Colors.white60,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>  Homepage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Homepage()));
                 },
                 child: const Text(
                   "โพสต์กิจกรรม",
@@ -38,6 +38,9 @@ class _NavigatorbarState extends State<Navigatorbar> {
                       fontSize: 22),
                 )),
           ),
+          SizedBox(
+            width: 10
+          ),
           //     const SizedBox(
           //   width: 40,
           // ),
@@ -45,7 +48,10 @@ class _NavigatorbarState extends State<Navigatorbar> {
             // color: Color.fromARGB(255, 183, 181, 181),
             // padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
             // width: MediaQuery.of(context).size.width * 0.2,
-            child: TextButton(
+            child: RaisedButton(
+                color: Colors.white60,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),),
                 onPressed: () {
                   Navigator.push(
                       context,
@@ -60,13 +66,19 @@ class _NavigatorbarState extends State<Navigatorbar> {
                       fontWeight: FontWeight.w400),
                 )),
           ),
+           SizedBox(
+            width: 10
+          ),
           // const SizedBox(
           //   width: 40,
           // ),
           Container(
             // padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
             // width: MediaQuery.of(context).size.width * 0.2,
-            child: TextButton(
+            child: RaisedButton(
+                color: Colors.white60,
+                 shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),),
                 onPressed: () {
                   Navigator.push(
                       context,
@@ -78,8 +90,12 @@ class _NavigatorbarState extends State<Navigatorbar> {
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 21,
+                      
                       fontWeight: FontWeight.w400),
                 )),
+          ),
+           SizedBox(
+            width: 10
           ),
           Container(
               // width: MediaQuery.of(context).size.width * 0.15,

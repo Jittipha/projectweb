@@ -53,8 +53,17 @@ class _ApprovedCateState extends State<ApprovedCate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
         backgroundColor: Colors.greenAccent,
         body: Container(
+           height: double.infinity,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(
+                      "https://images.unsplash.com/photo-1651147538420-06f5e0d3f1d9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"),
+                  fit: BoxFit.cover),
+            ),
             padding: const EdgeInsets.all(60),
             child: ScreenTypeLayout(
               desktop: Builddesktop(context),
@@ -78,15 +87,12 @@ class _ApprovedCateState extends State<ApprovedCate> {
           const SizedBox(
             height: 40,
           ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.greenAccent[400],
-            ),
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-            height: height,
-            width: 700,
-            child: StreamBuilder(
+          
+         Container(
+          height: height,
+          width: 600,
+          child:
+          StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("PreCategories")
                   .orderBy('Name', descending: true)
@@ -100,78 +106,143 @@ class _ApprovedCateState extends State<ApprovedCate> {
                 } else {
                   return ListView(
                       children: snapshot.data!.docs.map((PreCate) {
-                    return Container(
-                      padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
-                      child: ListTile(
-                        // trailing: Row(
-                        //   children: [
-                        //   //  GestureDetector(
-                        //   //    child: const CircleAvatar(
-                        //   //      radius: 30,
-                        //   //      backgroundColor: Colors.white,
-                        //   //      child: Icon(
-                        //   //        Icons.check_circle_outline_outlined,
-                        //   //        size: 25,
-                        //   //      ),
-                        //   //    )
-                        //   //  )
-                        //   ],
-                        // ),
-                        // trailing: Wrap(
-                        //   spacing: 12, // space between two icons
-                        //   children: <Widget>[
-                        //     GestureDetector(
-                        //         child: const CircleAvatar(
-                        //       radius: 30,
-                        //       backgroundColor: Colors.greenAccent,
-                        //       child: Icon(
-                        //         Icons.check_circle_outline_outlined,
-                        //         size: 60,
-                        //       ),
-                        //     )),
-                        //     GestureDetector(
-                        //         child: const CircleAvatar(
-                        //       radius: 28,
-                        //       backgroundColor: Colors.redAccent,
-                        //       child: Icon(
-                        //         Icons.close_rounded,
-                        //         size: 56,
-                        //       ),
-                        //     )), // icon-2
-                        //   ],
-                        // ),
-
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.black,
-                          radius: 55,
-                          child: CircleAvatar(
-                            backgroundImage: NetworkImage(PreCate["Image"]),
-                            radius: 23,
-                          ),
+           
+                return Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 10),
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.black,
+                        radius: 55,
+                        child: CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(PreCate['Image']),
+                          radius: 23,
                         ),
-                        title: Text(
-                          PreCate["Name"],
-                          style: const TextStyle(fontSize: 22),
-                        ),
-                        subtitle: Text(
+                      ),
+                      title: Text(
+                       PreCate["Name"],
+                        style: const TextStyle(fontSize: 22),
+                      ),
+                       subtitle: Text(
                           PreCate["Description"],
                           style: const TextStyle(fontSize: 16),
                           maxLines: 1,
                         ),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      detailcate(Precate: PreCate)));
-                        },
-                      ),
-                    );
-                  }).toList());
-                }
-              },
-            ),
-          ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => detailcate(
+                                    Precate: PreCate)));
+                      },
+                  
+                    ),
+                  ),
+                );
+           }).toList()); } } )),
+        
+      
+          // Container(
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(10),
+          //     color: Color.fromARGB(255, 96, 177, 162),
+          //   ),
+          //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+          //   height: height,
+          //   width: 700,
+          //   child: StreamBuilder(
+          //     stream: FirebaseFirestore.instance
+          //         .collection("PreCategories")
+          //         .orderBy('Name', descending: true)
+          //         .limit(limit)
+          //         .snapshots(),
+          //     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          //       if (snapshot.connectionState == ConnectionState.waiting) {
+          //         return const Center(
+          //           child: CircularProgressIndicator(),
+          //         );
+          //       } else {
+          //         return ListView(
+          //             children: snapshot.data!.docs.map((PreCate) {
+          //           return Container(
+          //             padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+          //             child: ListTile(
+          //               // trailing: Row(
+          //               //   children: [
+          //               //   //  GestureDetector(
+          //               //   //    child: const CircleAvatar(
+          //               //   //      radius: 30,
+          //               //   //      backgroundColor: Colors.white,
+          //               //   //      child: Icon(
+          //               //   //        Icons.check_circle_outline_outlined,
+          //               //   //        size: 25,
+          //               //   //      ),
+          //               //   //    )
+          //               //   //  )
+          //               //   ],
+          //               // ),
+          //               // trailing: Wrap(
+          //               //   spacing: 12, // space between two icons
+          //               //   children: <Widget>[
+          //               //     GestureDetector(
+          //               //         child: const CircleAvatar(
+          //               //       radius: 30,
+          //               //       backgroundColor: Colors.greenAccent,
+          //               //       child: Icon(
+          //               //         Icons.check_circle_outline_outlined,
+          //               //         size: 60,
+          //               //       ),
+          //               //     )),
+          //               //     GestureDetector(
+          //               //         child: const CircleAvatar(
+          //               //       radius: 28,
+          //               //       backgroundColor: Colors.redAccent,
+          //               //       child: Icon(
+          //               //         Icons.close_rounded,
+          //               //         size: 56,
+          //               //       ),
+          //               //     )), // icon-2
+          //               //   ],
+          //               // ),
+
+          //               leading: CircleAvatar(
+          //                 backgroundColor: Colors.black,
+          //                 radius: 55,
+          //                 child: CircleAvatar(
+          //                   backgroundImage: NetworkImage(PreCate["Image"]),
+          //                   radius: 23,
+          //                 ),
+          //               ),
+          //               title: Text(
+          //                 PreCate["Name"],
+          //                 style: const TextStyle(fontSize: 22),
+          //               ),
+          //               subtitle: Text(
+          //                 PreCate["Description"],
+          //                 style: const TextStyle(fontSize: 16),
+          //                 maxLines: 1,
+          //               ),
+          //               onTap: () {
+          //                 Navigator.push(
+          //                     context,
+          //                     MaterialPageRoute(
+          //                         builder: (context) =>
+          //                             detailcate(Precate: PreCate)));
+          //               },
+          //             ),
+          //           );
+          //         }).toList());
+          //       }
+          //     },
+          //   ),
+          // ),
           Container(
               child: Length > 7
                   ? ListTile(
@@ -189,8 +260,8 @@ class _ApprovedCateState extends State<ApprovedCate> {
                       },
                     )
                   : Container()),
-        ],
-      ));
+        
+      ]));
 
   Widget Buildtablet() => const Center(
           child: Text(
