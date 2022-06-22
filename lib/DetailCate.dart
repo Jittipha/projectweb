@@ -30,7 +30,7 @@ class _detailcateState extends State<detailcate> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                   image: NetworkImage(
-                      "https://media.discordapp.net/attachments/919218109334814750/983557478023303189/Group_152.png?width=861&height=612"),
+                      "https://pngimage.net/wp-content/uploads/2018/05/bg-blue-png-5.png"),
                   fit: BoxFit.cover),
             ),
             padding: const EdgeInsets.all(60),
@@ -49,9 +49,9 @@ class _detailcateState extends State<detailcate> {
             child: Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  padding: const EdgeInsets.all(8), // Border width
+                  padding: const EdgeInsets.all(3), // Border width
                   decoration: BoxDecoration(
-                      color: Colors.greenAccent[400],
+                      color: Color.fromARGB(255, 0, 0, 0),
                       borderRadius: BorderRadius.circular(20)),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),

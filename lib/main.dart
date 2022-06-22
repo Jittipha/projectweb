@@ -2,6 +2,8 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:projectweb/ApproveCategories.dart';
+import 'package:projectweb/DetailCate.dart';
 import 'package:projectweb/Home.dart';
 import 'package:projectweb/Login/login.dart';
 import 'package:projectweb/liststudents.dart';
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home:  Login(),
+      home:  ApprovedCate(),
     );
   }
 }

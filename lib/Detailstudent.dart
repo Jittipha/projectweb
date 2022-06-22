@@ -19,15 +19,21 @@ class _detailstudentState extends State<detailstudent> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.greenAccent,
-        body: Background(
-          child: Container(
-              padding: const EdgeInsets.all(60),
-              child: ScreenTypeLayout(
-                desktop: Builddesktop(context),
-                tablet: Buildtablet(),
-                mobile: Buildmobile(),
-              )),
-        ));
+        body: Container(
+           height: double.infinity,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(
+                      "https://pngimage.net/wp-content/uploads/2018/05/bg-blue-png-5.png"),
+                  fit: BoxFit.cover),
+            ),
+            padding: const EdgeInsets.all(60),
+            child: ScreenTypeLayout(
+              desktop: Builddesktop(context),
+              tablet: Buildtablet(),
+              mobile: Buildmobile(),
+            )));
   }
 
   // ignore: non_constant_identifier_names
