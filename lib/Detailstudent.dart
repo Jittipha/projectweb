@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:projectweb/Background/Bg-login.dart';
 import 'package:projectweb/liststudents.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -20,12 +21,12 @@ class _detailstudentState extends State<detailstudent> {
     return Scaffold(
         backgroundColor: Colors.greenAccent,
         body: Container(
-           height: double.infinity,
+            height: double.infinity,
             width: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
                   image: NetworkImage(
-                      "https://pngimage.net/wp-content/uploads/2018/05/bg-blue-png-5.png"),
+                      "https://images.unsplash.com/photo-1508614999368-9260051292e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"),
                   fit: BoxFit.cover),
             ),
             padding: const EdgeInsets.all(60),
@@ -45,10 +46,10 @@ class _detailstudentState extends State<detailstudent> {
             child: Align(
                 alignment: Alignment.topCenter,
                 child: CircleAvatar(
-                    radius: 200,
-                    backgroundColor: Colors.greenAccent[700],
+                    radius: 250,
+                    // backgroundColor: const Color.fromARGB(255, 8, 8, 8),
                     child: CircleAvatar(
-                      radius: 195,
+                      radius: 185,
                       backgroundImage: NetworkImage(widget.student["Photo"]),
                     )))),
         Container(
@@ -69,7 +70,10 @@ class _detailstudentState extends State<detailstudent> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Name   :   " + widget.student["Name"],
-                      style: const TextStyle(fontSize: 35),
+                      style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                        fontSize: 35,
+                      )),
                       textAlign: TextAlign.left,
                     )),
                 const SizedBox(
@@ -79,7 +83,10 @@ class _detailstudentState extends State<detailstudent> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Email   :   " + widget.student["Email"],
-                      style: const TextStyle(fontSize: 35),
+                      style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                        fontSize: 22,
+                      )),
                       textAlign: TextAlign.left,
                     )),
                 const SizedBox(
@@ -89,71 +96,78 @@ class _detailstudentState extends State<detailstudent> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Posts",
-                      style: TextStyle(fontSize: 35),
+                      style: TextStyle(fontSize: 22),
                       textAlign: TextAlign.left,
                     )),
                 const SizedBox(
                   height: 15,
                 ),
                 Container(
-                  // alignment: Alignment.centerLeft,
-                  height: 200,
-                  // width: 200,
-
-                  color: Colors.white,
-                  child: StreamBuilder(
-                      stream: FirebaseFirestore.instance
-                          .collection("Student")
-                          .doc(widget.student.id)
-                          .collection("Posts")
-                          .snapshots(),
-                      builder:
-                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                          // ignore: prefer_is_empty
-                        } else if (snapshot.data?.docs.length == 0) {
-                          return Center(
-                              // padding: const EdgeInsets.fromLTRB(0, 50, 50, 0),
-                              child: const Text(
-                            "NOT HAVE EVENT.",
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w300),
-                          ));
-                        } else {
-                          return ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: snapshot.data!.docs
-                                // ignore: non_constant_identifier_names
-                                .map((Postofstudent) {
-                              return Column(
-                                children: <Widget>[
-                                  CircleAvatar(
-                                    radius: 50,
-                                    backgroundColor:
-                                        Colors.lightBlueAccent[100],
-                                    child: CircleAvatar(
-                                      radius: 48,
-                                      backgroundImage: NetworkImage(
-                                          Postofstudent["Image"]),
+                  // height: 200,
+                  // color: Colors.white,
+                  child: Expanded(
+                    child: StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection("Student")
+                            .doc(widget.student.id)
+                            .collection("Posts")
+                            .snapshots(),
+                        builder:
+                            (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return SingleChildScrollView(
+                              child: CircularProgressIndicator(),
+                            );
+                            // ignore: prefer_is_empty
+                          } else if (snapshot.data?.docs.length == 0) {
+                            return Center(
+                                // padding: const EdgeInsets.fromLTRB(0, 50, 50, 0),
+                                child: const Text(
+                              "NOT HAVE EVENT.",
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.w300),
+                            ));
+                          } else {
+                            return ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: snapshot.data!.docs
+                                  // ignore: non_constant_identifier_names
+                                  .map((Postofstudent) {
+                                return SingleChildScrollView(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: <Widget>[
+                                        CircleAvatar(
+                                          radius: 30,
+                                          backgroundColor:
+                                              Colors.lightBlueAccent[100],
+                                          child: CircleAvatar(
+                                            radius: 30,
+                                            backgroundImage: NetworkImage(
+                                                Postofstudent["Image"]),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text(
+                                          Postofstudent["Name"],
+                                          style: GoogleFonts.lato(
+                                              textStyle: TextStyle(
+                                            fontSize: 15,
+                                          )),
+                                        )
+                                      ],
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  Text(
-                                    Postofstudent["Name"],
-                                    style: const TextStyle(fontSize: 18),
-                                  )
-                                ],
-                              );
-                            }).toList(),
-                          );
-                        }
-                      }),
+                                );
+                              }).toList(),
+                            );
+                          }
+                        }),
+                  ),
                 ),
                 Container(
                     padding: const EdgeInsets.fromLTRB(60, 10, 0, 0),

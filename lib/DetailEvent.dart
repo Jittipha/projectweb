@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:projectweb/Home.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -24,7 +25,7 @@ class _datailEventState extends State<datailEvent> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                   image: NetworkImage(
-                      "https://pngimage.net/wp-content/uploads/2018/05/bg-blue-png-5.png"),
+                      "https://images.unsplash.com/photo-1508614999368-9260051292e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"),
                   fit: BoxFit.cover),
             ),
             padding: const EdgeInsets.all(60),
@@ -44,7 +45,7 @@ class _datailEventState extends State<datailEvent> {
                 alignment: Alignment.topCenter,
                 child: CircleAvatar(
                     radius: 250,
-                    backgroundColor: const Color.fromARGB(255, 8, 8, 8),
+                    backgroundColor: Color.fromARGB(255, 247, 244, 244),
                     child: CircleAvatar(
                       radius: 185,
                       backgroundImage: NetworkImage(widget.Event["Image"]),
@@ -67,7 +68,7 @@ class _datailEventState extends State<datailEvent> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Name   :   " + widget.Event["Name"],
-                      style: const TextStyle(fontSize: 35),
+                      style: GoogleFonts.lato(textStyle: TextStyle(fontSize: 35,)),
                       textAlign: TextAlign.left,
                     )),
                 const SizedBox(
@@ -77,7 +78,7 @@ class _datailEventState extends State<datailEvent> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Description   :   " + widget.Event["Description"],
-                      style: const TextStyle(fontSize: 22),
+                      style: GoogleFonts.lato(textStyle: TextStyle(fontSize: 22,)),
                       textAlign: TextAlign.left,
                     )),
                 const SizedBox(
@@ -104,7 +105,8 @@ class _datailEventState extends State<datailEvent> {
                         child: Text(
                           "ผู้สร้างโพส   :   " +
                               widget.Event["Host"][0]["Name"],
-                          style: const TextStyle(fontSize: 22),
+                          style: GoogleFonts.lato(textStyle: TextStyle(fontSize: 22,)),
+                          // TextStyle(fontSize: 22),
                           textAlign: TextAlign.left,
                         )),
                   ],

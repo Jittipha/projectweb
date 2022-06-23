@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:projectweb/Background/Bg-DetailStudent.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -30,7 +31,7 @@ class _detailcateState extends State<detailcate> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                   image: NetworkImage(
-                      "https://pngimage.net/wp-content/uploads/2018/05/bg-blue-png-5.png"),
+                      "https://images.unsplash.com/photo-1508614999368-9260051292e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"),
                   fit: BoxFit.cover),
             ),
             padding: const EdgeInsets.all(60),
@@ -44,19 +45,21 @@ class _detailcateState extends State<detailcate> {
   // ignore: non_constant_identifier_names
   Widget Builddesktop(BuildContext context) => Row(children: [
         Container(
-            padding: const EdgeInsets.fromLTRB(0, 45, 0, 0),
-            width: MediaQuery.of(context).size.width * 0.45,
+          height: 400,
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+            width: MediaQuery.of(context).size.width * 0.40,
             child: Align(
                 alignment: Alignment.topCenter,
                 child: Container(
                   padding: const EdgeInsets.all(3), // Border width
                   decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      borderRadius: BorderRadius.circular(20)),
+                      color: Color.fromARGB(255, 247, 245, 245),
+                      borderRadius: BorderRadius.circular(250)
+                      ),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(250),
                     child: SizedBox.fromSize(
-                      size: const Size.fromRadius(200), // Image radius
+                      size: const Size.fromRadius(185), // Image radius
                       child: Image.network(widget.Precate["Image"],
                           fit: BoxFit.cover),
                     ),
@@ -69,8 +72,16 @@ class _detailcateState extends State<detailcate> {
         //       radius: 195,
         //       backgroundImage: NetworkImage(widget.Precate["Image"]),
         //     )))),
-        SizedBox(
+        Container(
+          decoration: BoxDecoration(
+              color: Color.fromARGB(255, 230, 233, 232),
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            padding: const EdgeInsets.all(50.0),
             width: MediaQuery.of(context).size.width * 0.45,
+            height: 700,
+          
             child: Column(
               children: [
                 const SizedBox(
@@ -80,7 +91,7 @@ class _detailcateState extends State<detailcate> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Name   :   " + widget.Precate["Name"],
-                      style: const TextStyle(fontSize: 35),
+                       style: GoogleFonts.lato(textStyle: TextStyle(fontSize: 35,)),
                       textAlign: TextAlign.left,
                     )),
                 const SizedBox(
@@ -90,7 +101,7 @@ class _detailcateState extends State<detailcate> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Description   :   " + widget.Precate["Description"],
-                      style: const TextStyle(fontSize: 35),
+                       style: GoogleFonts.lato(textStyle: TextStyle(fontSize: 22,)),
                       textAlign: TextAlign.left,
                     )),
                 const SizedBox(
@@ -100,7 +111,7 @@ class _detailcateState extends State<detailcate> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Host   :  ",
-                      style: TextStyle(fontSize: 35),
+                      style: TextStyle(fontSize: 22),
                       textAlign: TextAlign.left,
                     )),
                 const SizedBox(
@@ -125,7 +136,7 @@ class _detailcateState extends State<detailcate> {
                     ),
                     Text(
                       widget.Precate['Student'][0]["Name"],
-                      style: const TextStyle(fontSize: 35),
+                      style: GoogleFonts.lato(textStyle: TextStyle(fontSize: 22,)),
                     )
                   ],
                 ),

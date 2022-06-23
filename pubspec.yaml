@@ -47,6 +47,7 @@ dependencies:
   intl: ^0.17.0
   get_storage: ^2.0.3
   auto_size_text: ^3.0.0
+  google_fonts: ^3.0.1
  
   
  
