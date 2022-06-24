@@ -57,7 +57,7 @@ class _datailEventState extends State<datailEvent> {
               borderRadius: BorderRadius.circular(20.0),
             ),
             padding: const EdgeInsets.all(50.0),
-            width: MediaQuery.of(context).size.width * 0.45,
+            width: MediaQuery.of(context).size.width * 0.39,
             height: 700,
             child: ListView(
               children: [

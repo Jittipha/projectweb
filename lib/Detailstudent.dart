@@ -59,7 +59,7 @@ class _detailstudentState extends State<detailstudent> {
               borderRadius: BorderRadius.circular(20.0),
             ),
             padding: const EdgeInsets.all(50.0),
-            width: MediaQuery.of(context).size.width * 0.45,
+            width: MediaQuery.of(context).size.width * 0.39,
             height: 700,
             child: Column(
               children: [
@@ -172,6 +172,7 @@ class _detailstudentState extends State<detailstudent> {
                 Container(
                     padding: const EdgeInsets.fromLTRB(60, 10, 0, 0),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         GestureDetector(
                             onTap: () {

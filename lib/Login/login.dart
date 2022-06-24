@@ -22,7 +22,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Colors.greenAccent,
-      body: Background(
+      body: Center(
         
         child: Container(
           height: double.infinity,
