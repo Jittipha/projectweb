@@ -124,7 +124,7 @@ class _liststudentState extends State<liststudent> {
     return Scaffold(
         backgroundColor: Colors.greenAccent,
         body: Container(
-           height: double.infinity,
+            height: double.infinity,
             width: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -141,109 +141,109 @@ class _liststudentState extends State<liststudent> {
   }
 
   Widget Builddesktop() => Column(
-    children: [
-      const Navigatorbar(),
-      const SizedBox(
-        height: 30,
-      ),
-      const Text(
-        "STUDENTS",
-        style: TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
-        textAlign: TextAlign.center,
-      ),
-      const SizedBox(
-        height: 15,
-      ),
-      SizedBox(
-        width: 550,
-        child: TextField(
-          cursorHeight: 10,
-          autofocus: false,
-          controller: _searchController,
-          decoration: InputDecoration(
-              prefixIcon: Icon(Icons.search),
-              contentPadding: const EdgeInsets.symmetric(
-                  vertical: 10, horizontal: 10),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0))),
-              labelText: 'Search.....',
-              hintText: "Enter your Studentname"),
-        ),
-      ),
-      const SizedBox(
-        height: 15,
-      ),
-      Expanded(
-        child: Container(
-          height: 10,
-          width: 600,
-          child: ListView.builder(
-              itemCount: _resultList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                    ),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 10),
-                      leading: CircleAvatar(
-                        backgroundColor: Colors.black,
-                        radius: 55,
-                        child: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(_resultList[index]['Photo']),
-                          radius: 23,
+        children: [
+          const Navigatorbar(),
+          const SizedBox(
+            height: 30,
+          ),
+          const Text(
+            "STUDENTS",
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          SizedBox(
+            width: 550,
+            child: TextField(
+              cursorHeight: 10,
+              autofocus: false,
+              controller: _searchController,
+              decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.search),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30.0))),
+                  labelText: 'Search.....',
+                  hintText: "Enter your Studentname"),
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Expanded(
+            child: Container(
+              height: 10,
+              width: 600,
+              child: ListView.builder(
+                  itemCount: _resultList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 10),
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.black,
+                            radius: 55,
+                            child: CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage(_resultList[index]['Photo']),
+                              radius: 23,
+                            ),
+                          ),
+                          title: Text(
+                            _resultList[index]["Name"],
+                            style: const TextStyle(fontSize: 22),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => detailstudent(
+                                        student: _resultList[index])));
+                          },
+                          trailing: GestureDetector(
+                            onTap: () => {showAlertDialog(context, index)},
+                            child: Icon(
+                              Icons.delete,
+                              size: 35,
+                              color: Colors.red,
+                            ),
+                          ),
                         ),
                       ),
-                      title: Text(
-                        _resultList[index]["Name"],
-                        style: const TextStyle(fontSize: 22),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => detailstudent(
-                                    student: _resultList[index])));
-                      },
-                      trailing: GestureDetector(
-                        onTap: () => {showAlertDialog(context, index)},
-                        child: Icon(
-                          Icons.delete,
-                          size: 35,
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              }),
-        ),
-      ),
-      // Container(
-      //     child: Length > 7
-      //         ? ListTile(
-      //             title: const Text(
-      //               "See more..",
-      //               style: TextStyle(fontSize: 20),
-      //               textAlign: TextAlign.center,
-      //             ),
-      //             onTap: () {
-      //               setState(() {
-      //                 stagelimit = 1;
-      //                 limit = limit + 5;
-      //                 // addheight(_resultList.length);
-      //                 Getdata();
-      //               });
-      //             },
-      //           )
-      //         : Container()),
-    ],
-  );
+                    );
+                  }),
+            ),
+          ),
+          // Container(
+          //     child: Length > 7
+          //         ? ListTile(
+          //             title: const Text(
+          //               "See more..",
+          //               style: TextStyle(fontSize: 20),
+          //               textAlign: TextAlign.center,
+          //             ),
+          //             onTap: () {
+          //               setState(() {
+          //                 stagelimit = 1;
+          //                 limit = limit + 5;
+          //                 // addheight(_resultList.length);
+          //                 Getdata();
+          //               });
+          //             },
+          //           )
+          //         : Container()),
+        ],
+      );
   Widget Buildmobile() => Center(
           child: Text(
         "โปรดขยายหน้าจอ !!",
@@ -278,9 +278,15 @@ class _liststudentState extends State<liststudent> {
           DeleteContainStudent(student);
           DeleteComment(student);
           DeleteStudent(student);
+          print('result>>> ${_resultList[index]["Name"]} ');
           _resultList.remove(_resultList[index]);
+          _allresult.remove(_resultList[index]);
+          print(_allresult);
+
           Navigator.pop(context);
-          setState(() {});
+          setState(() {
+            Getdata();
+          });
 
           // Navigator.push(
           //   context,
